@@ -29,7 +29,7 @@ class JobTable extends Migration
             $table->string('description');
             $table->string('requirement');
             $table->string('benefits');
-            $table->foreign('postion_id')->references('id')->on('position');
+            $table->foreign('position_id')->references('id')->on('position');
             $table->foreign('career_id')->references('id')->on('career');
             $table->timestamps();
         });
