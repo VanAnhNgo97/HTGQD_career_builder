@@ -11,13 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/index', function(){
-	return view('index');
-});
-Route::get('/raven', function(){
-	return view('raven_test');
-});
-Route::get('/test/matrix','MatrixController@get_row');
+Route::get('/','ClientController@getHome')->name('getHome');
+
+Route::get('cong-viec','ClientController@getWorkInfo')->name('getWorkInfo');
