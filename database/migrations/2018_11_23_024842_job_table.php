@@ -25,15 +25,7 @@ class JobTable extends Migration
             $table->float('salary');
             $table->unsignedInteger('experience');
             $table->float('soft_skill');
-<<<<<<< HEAD
-            /*$table->float('lat');
-            $table->float('lng');*/
             $table->string('location');
-=======
-            $table->string('location');
-            $table->float('lat');
-            $table->float('lng');
->>>>>>> dc14e7098807092f914b6af608a2051220ff3b72
             $table->text('description');
             $table->text('requirement');
             $table->text('benefits');
