@@ -109,7 +109,7 @@
 								<div class="form-group">
 									<label for="inp-type-1" class="col-sm-4 control-label">Địa Điểm:</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control" name="position_name" placeholder="địa điểm làm việc ...">
+										<input type="text" class="form-control" name="location" placeholder="địa điểm làm việc ...">
 									</div>
 								</div>
 								<div class="form-group">
