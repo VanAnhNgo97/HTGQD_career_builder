@@ -33,18 +33,28 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>Lập Trình Web</td>
-								<td>2.500.000</td>
-								<td>Nam</td>
-								<td>26</td>
-								<td>Tốt</td>
-								<td>2</td>
-								<td>
-									<a href="{{ route('getEditWork') }}"><i class="fa fa-edit"></i></a>
-									<a href=""><i class="fa fa-remove"></i></a>
-								</td>
-							</tr>
+							@if (count($jobs)>0)
+								@foreach ($jobs as $job)
+									<tr>
+										<td>{{ $job->name }}</td>
+										<td>{{ $job->salary }}</td>
+										<td>@if ($job->gender==0)
+											Cả 2
+										@elseif($job->gender==1)
+											Nam
+										@else
+											Nữ
+										@endif</td>
+										<td>{{ $job->min_age.'-'.$job->max_age }}</td>
+										<td>{{ $job->getSoft_Skill() }}</td>
+										<td>{{ $job->experience }}</td>
+										<td>
+											<a href="{{ route('getEditWork',$job->id) }}"><i class="fa fa-edit"></i></a>
+											<a href="{{ route('getDeleteJob',$job->id) }}"><i class="fa fa-remove"></i></a>
+										</td>
+									</tr>
+								@endforeach
+							@endif
 						</tbody>
 					</table>
 				</div>
