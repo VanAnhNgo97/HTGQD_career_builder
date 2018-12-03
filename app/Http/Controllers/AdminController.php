@@ -49,7 +49,7 @@ class AdminController extends Controller
         $location = $req->location;
         $job=new Job;
         $job->add($name,$gender,$max_age,$min_age,$career_id,$position_id,$salary,$experience,$soft_skill,$location,$description,$requirement,$benefits);
-        return redirect('admin/trang-chu');
+        return redirect('admin/them-cong-viec');
     }
 
     public function postEditWork(Request $req)
