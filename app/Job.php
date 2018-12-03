@@ -8,7 +8,7 @@ class Job extends Model
 {
     protected $table='job';
 
-    public function add($name,$gender,$max_age,$min_age,$career_id,$position_id,$salary,$experience,$soft_skill,$lat,$lng,$description,$requirement,$benefits)
+    public function add($name,$gender,$max_age,$min_age,$career_id,$position_id,$salary,$experience,$soft_skill,$location,$description,$requirement,$benefits)
     {
     	$this->name=$name;
     	$this->gender=$gender;
@@ -19,15 +19,16 @@ class Job extends Model
     	$this->salary=$salary;
     	$this->experience=$experience;
     	$this->soft_skill=$soft_skill;
-    	$this->lat=$lat;
-    	$this->lng=$lng;
+    	/*$this->lat=$lat;
+    	$this->lng=$lng;*/
+        $this->location = $location;
     	$this->description=$description;
     	$this->requirement=$requirement;
     	$this->benefits=$benefits;
     	$this->save();
     }
 
-    public function edit($name,$gender,$max_age,$min_age,$career_id,$position_id,$salary,$experience,$soft_skill,$lat,$lng,$description,$requirement,$benefits)
+    public function edit($name,$gender,$max_age,$min_age,$career_id,$position_id,$salary,$experience,$soft_skill,$location,$description,$requirement,$benefits)
     {
     	$this->name=$name;
     	$this->gender=$gender;
@@ -38,8 +39,9 @@ class Job extends Model
     	$this->salary=$salary;
     	$this->experience=$experience;
     	$this->soft_skill=$soft_skill;
-    	$this->lat=$lat;
-    	$this->lng=$lng;
+    	/*$this->lat=$lat;
+    	$this->lng=$lng;*/
+        $this->location = $location;
     	$this->description=$description;
     	$this->requirement=$requirement;
     	$this->benefits=$benefits;

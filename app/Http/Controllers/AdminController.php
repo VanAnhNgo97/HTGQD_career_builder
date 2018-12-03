@@ -46,9 +46,9 @@ class AdminController extends Controller
         $description=$req->description;
         $requirement=$req->requirement;
         $benefits=$req->benefits;
-
+        $location = $req->location;
         $job=new Job;
-        $job->add($name,$gender,$max_age,$min_age,$career_id,$position_id,$salary,$experience,$soft_skill,$lat,$lng,$description,$requirement,$benefits);
+        $job->add($name,$gender,$max_age,$min_age,$career_id,$position_id,$salary,$experience,$soft_skill,$location,$description,$requirement,$benefits);
         return redirect('admin/trang-chu');
     }
 
@@ -67,11 +67,13 @@ class AdminController extends Controller
         $soft_skill=$req->soft_skill;
         $lat=0;
         $lng=0;
+        $location = $req->location;
         $description=$req->description;
         $requirement=$req->requirement;
         $benefits=$req->benefits;
 
-        $job->edit($name,$gender,$max_age,$min_age,$career_id,$position_id,$salary,$experience,$soft_skill,$lat,$lng,$description,$requirement,$benefits);
+
+        $job->edit($name,$gender,$max_age,$min_age,$career_id,$position_id,$salary,$experience,$soft_skill,$location,$description,$requirement,$benefits);
         return redirect('admin/trang-chu');
     }
 
