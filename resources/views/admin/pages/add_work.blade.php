@@ -9,35 +9,36 @@
 					<h4 class="box-title">Thông Tin Công Việc</h4>
 					<!-- /.box-title -->
 					<div class="card-content">
-						<form class="form-horizontal">
+						<form class="form-horizontal" action="{{ route('postAddWork') }}" method="post">
 							<div class="col-lg-6">
 								<div class="form-group">
 									<label for="inp-type-1" class="col-sm-4 control-label">Tên Nghề Nghiệp:</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control" id="inp-type-1" placeholder="tên công việc ...">
+										<input type="text" class="form-control" name="job_name" placeholder="tên công việc ...">
+										<input type="hidden" name="_token" value="{{ csrf_token() }}">
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="inp-type-3" class="col-sm-4 control-label">Yêu cầu giới tính:</label>
 									<div class="col-sm-8">
-										<select class="form-control">
+										<select class="form-control" name="gender">
 											<option value="">Chọn giới tính</option>
-											<option value="-1">Nam</option>
-											<option value="0">Nữ</option>
-											<option value="1">Cả 2</option>
+											<option value="1">Nam</option>
+											<option value="2">Nữ</option>
+											<option value="0">Cả 2</option>
 										</select>
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="inp-type-1" class="col-sm-4 control-label">Mức Lương:</label>
 									<div class="col-sm-8">
-										<input type="number" class="form-control" id="inp-type-1" placeholder="tuổi chấp nhận ...">
+										<input type="number" class="form-control" name="salary" placeholder="mức lương chấp nhận ...">
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="inp-type-1" class="col-sm-4 control-label">Nghành Nghề:</label>
 									<div class="col-sm-8">
-										<select class="form-control">
+										<select class="form-control" name="career_id">
 											<option value="">Chọn ngành nghề</option>
 											<option value="1">CNTT Phần Mềm</option>
 											<option value="2">Bán Hàng Kinh Doanh</option>
@@ -54,8 +55,8 @@
 								</div>
 								<div class="form-group">
 									<label for="inp-type-1" class="col-sm-4 control-label">Kỹ Năng Mềm:</label>
-									<div class="col-sm-8">
-										<select class="form-control">
+									<div class="col-sm-8" >
+										<select class="form-control" name="soft_skill">
 											<option value="">Chọn mức độ</option>
 											<option value="1">Kém</option>
 											<option value="2">Khá</option>
@@ -66,41 +67,23 @@
 									</div>
 								</div>
 								<div class="form-group">
+									<label for="inp-type-1" class="col-sm-4 control-label">Phúc Lợi:</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" name="benefits" placeholder="phúc lợi...">
+									</div>
+								</div>
+								<div class="form-group">
 									<label for="inp-type-5" class="col-sm-4 control-label">Mô Tả</label>
 									<div class="col-sm-8">
-										<textarea class="form-control" id="inp-type-5" placeholder="mô tả về công việc"></textarea>
+										<textarea class="form-control" name="description" placeholder="mô tả về công việc"></textarea>
 									</div>
 								</div>
 							</div>
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label for="inp-type-2" class="col-sm-4 control-label">Email:</label>
-									<div class="col-sm-8">
-										<input type="email" class="form-control" id="inp-type-2" placeholder="địa chỉ email">
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="inp-type-1" class="col-sm-4 control-label">Yêu Cầu Tuổi:</label>
-									<div class="col-sm-8">
-										<input type="number" class="form-control" id="inp-type-1" placeholder="tuổi chấp nhận ...">
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="inp-type-1" class="col-sm-4 control-label">Địa Điểm:</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control" id="inp-type-1" placeholder="địa điểm làm việc ...">
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="inp-type-1" class="col-sm-4 control-label">Kinh Nghiệm:</label>
-									<div class="col-sm-8">
-										<input type="number" class="form-control" id="inp-type-1" placeholder="số năm kinh nghiệm ...">
-									</div>
-								</div>
-								<div class="form-group">
 									<label for="inp-type-1" class="col-sm-4 control-label">Cấp Bậc:</label>
 									<div class="col-sm-8">
-										<select class="form-control">
+										<select class="form-control" name="position_id">
 											<option value="">Chọn cấp bậc</option>
 											<option value="1">Sinh viên thực tập</option>
 											<option value="2">Mới tốt nghiệp</option>
@@ -110,6 +93,35 @@
 											<option value="6">Quản lý cấp cao</option>
 											<option value="7">Điều hành cấp cao</option>
 										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="inp-type-1" class="col-sm-4 control-label">Yêu Cầu Tuổi:</label>
+									<div>
+										<div class="col-sm-4">
+											<input type="number" name="min_age" class="form-control" placeholder="tuổi nhỏ nhất chấp nhận ...">
+										</div>
+										<div class="col-sm-4">
+											<input type="number" name="max_age" class="form-control" placeholder="tuổi lớn nhất chấp nhận ...">
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="inp-type-1" class="col-sm-4 control-label">Địa Điểm:</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" name="position_name" placeholder="địa điểm làm việc ...">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="inp-type-1" class="col-sm-4 control-label">Kinh Nghiệm:</label>
+									<div class="col-sm-8">
+										<input type="number" class="form-control" name="experience" placeholder="số năm kinh nghiệm ...">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="inp-type-5" class="col-sm-4 control-label">Yêu Cầu:</label>
+									<div class="col-sm-8">
+										<textarea class="form-control" name="requirement" placeholder="yêu cầu về công việc"></textarea>
 										<br>
 										<button type="submit" class="btn btn-primary waves-effect waves-light">Hoàn Thành</button>
 									</div>

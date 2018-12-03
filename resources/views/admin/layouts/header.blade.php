@@ -2,7 +2,7 @@
 	<div class="header-top">
 		<div class="container">
 			<div class="pull-left">
-				<a href="{{ route('getAdminHome') }}" class="logo">Nhóm 4</a>
+				<a href="{{ route('getAdminHome') }}" class="logo">Nhóm 3</a>
 			</div>
 			<!-- /.pull-left -->
 			<div class="pull-right">

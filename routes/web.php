@@ -19,6 +19,12 @@ Route::get('admin/trang-chu','AdminController@getHome')->name('getAdminHome');
 
 Route::get('admin/them-cong-viec','AdminController@getAddWork')->name('getAddWork');
 
-Route::get('admin/sua-cong-viec','AdminController@getEditWork')->name('getEditWork');
+Route::get('admin/sua-cong-viec/{id}','AdminController@getEditWork')->name('getEditWork');
+
+Route::post('admin/sua-cong-viec','AdminController@postEditWork')->name('postEditWork');
 
 Route::get('admin/sua-trong-so','AdminController@getEdit')->name('getEdit');
+
+Route::post('admin/them-cong-viec','AdminController@postAddWork')->name('postAddWork');
+
+Route::get('admin/xoa-cong-viec/{id}','AdminController@getDeleteJob')->name('getDeleteJob');
