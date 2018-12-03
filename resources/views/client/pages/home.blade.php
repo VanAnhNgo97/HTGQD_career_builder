@@ -179,280 +179,65 @@
                                 <h3 class="panel-title">Sửa yêu cầu tìm việc làm</h3>
                             </div>
                             <div class="panel-body">
-                                <form id="searchFormRightCol" action="/tim-viec-lam-nang-cao" method="post" role="form">
-                                    <div class="form-group">
-                                        <label class="control-label">Từ khoá</label>
-                                        <input type="text" id="advancedJobSearch_keywords" name="advancedJobSearch[keywords]" class="input-sm form-control" placeholder="Nhập từ khóa..." />
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label">Điều kiện</label>
-                                        <select id="advancedJobSearch_keywordUse" name="advancedJobSearch[keywordUse]" class="input-sm form-control">
-                                            <option value="A" selected="selected">Tất cả từ khoá</option>
-                                            <option value="B">Bất kỳ từ khoá nào</option>
-                                        </select>
-                                    </div>
+                                <form id="searchFormRightCol" action="{{ route('postSearchWork') }}" method="post" role="form">
                                     <div class="form-group">
                                         <label class="control-label">Ngành nghề</label>
-                                        <select id="advancedJobSearch_categories" name="advancedJobSearch[categories][]" class="input-sm form-control" size="1" multiple="multiple">
-                                            <option value="197">An Ninh / Bảo Vệ</option>
-                                            <option value="191">An Toàn Lao Động</option>
-                                            <option value="31">Bán hàng</option>
-                                            <option value="190">Bán lẻ / Bán sỉ</option>
-                                            <option value="24">Báo chí / Biên tập viên / Xuất bản</option>
-                                            <option value="17">Bảo hiểm</option>
-                                            <option value="195">Bảo trì / Sửa chữa</option>
-                                            <option value="29">Bất động sản</option>
-                                            <option value="18">Biên phiên dịch / Thông dịch viên</option>
-                                            <option value="154">Biên phiên dịch (tiếng Nhật)</option>
-                                            <option value="14">Chăm sóc sức khỏe / Y tế</option>
-                                            <option value="130">CNTT - Phần cứng / Mạng</option>
-                                            <option value="19">CNTT - Phần mềm</option>
-                                            <option value="26">Dầu khí / Khoáng sản</option>
-                                            <option value="33">Dệt may / Da giày</option>
-                                            <option value="9">Dịch vụ khách hàng</option>
-                                            <option value="199">Điện lạnh / Nhiệt lạnh</option>
-                                            <option value="28">Dược / Sinh học</option>
-                                            <option value="148">Điện / Điện tử</option>
-                                            <option value="192">Đồ Gỗ</option>
-                                            <option value="10">Giáo dục / Đào tạo / Thư viện</option>
-                                            <option value="189">Hàng gia dụng</option>
-                                            <option value="127">Hóa chất / Sinh hóa / Thực phẩm</option>
-                                            <option value="1">Kế toán / Kiểm toán</option>
-                                            <option value="15">Khách sạn / Du lịch</option>
-                                            <option value="139">Kiến trúc</option>
-                                            <option value="11">Kỹ thuật ứng dụng / Cơ khí</option>
-                                            <option value="20">Lao động phổ thông</option>
-                                            <option value="142">Môi trường / Xử lý chất thải</option>
-                                            <option value="118">Mới tốt nghiệp / Thực tập</option>
-                                            <option value="5">Ngân hàng / Chứng khoán</option>
-                                            <option value="4">Nghệ thuật / Thiết kế / Giải trí</option>
-                                            <option value="12">Người nước ngoài</option>
-                                            <option value="30">Nhà hàng / Dịch vụ ăn uống</option>
-                                            <option value="16">Nhân sự</option>
-                                            <option value="193">Nội thất / Ngoại thất</option>
-                                            <option value="3">Nông nghiệp / Lâm nghiệp</option>
-                                            <option value="151">Ô tô</option>
-                                            <option value="21">Pháp lý / Luật</option>
-                                            <option value="25">Phi chính phủ / Phi lợi nhuận</option>
-                                            <option value="145">Quản lý chất lượng (QA / QC)</option>
-                                            <option value="22">Quản lý điều hành</option>
-                                            <option value="2">Quảng cáo / Khuyến mãi / Đối ngoại</option>
-                                            <option value="23">Sản xuất / Vận hành sản xuất</option>
-                                            <option value="196">Tài chính / Đầu tư</option>
-                                            <option value="194">Thời trang</option>
-                                            <option value="198">Thuỷ Hải Sản</option>
-                                            <option value="6">Thư ký / Hành chánh</option>
-                                            <option value="136">Tiếp thị</option>
-                                            <option value="7">Tư vấn</option>
-                                            <option value="34">Vận chuyển / Giao thông / Kho bãi</option>
-                                            <option value="27">Vật tư / Mua hàng</option>
-                                            <option value="32">Viễn Thông</option>
-                                            <option value="8">Xây dựng</option>
-                                            <option value="13">Xuất nhập khẩu / Ngoại thương</option>
-                                            <option value="35">Khác</option>
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <select id="advancedJobSearch_categories" name="career_id" class="input-sm form-control" size="1" >
+                                            <option value="">Chọn ngành nghề</option>
+                                            <option value="1">CNTT Phần Mềm</option>
+                                            <option value="2">Bán Hàng Kinh Doanh</option>
+                                            <option value="3">Cơ Khí Ô Tô Tự Động Hóa</option>
+                                            <option value="4">Quảng Cáo Đối Ngoại Truyền Thông</option>
+                                            <option value="5">Kế Toán Kiểm Toán</option>
+                                            <option value="6">Thực Phẩm Và Đồ Uống</option>
+                                            <option value="7">Tài Chính Đầu Tư</option>
+                                            <option value="8">Ngân Hàng</option>
+                                            <option value="9">Y Tế Sức Khỏe</option>
+                                            <option value="10">Giáo Dục Đào Tạo</option>
                                         </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Tuổi</label>
+                                        <input type="text" id="advancedJobSearch_keywords" name="age" class="input-sm form-control" placeholder="Tuổi Của Bạn..." />
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label">Địa điểm</label>
-                                        <select id="advancedJobSearch_provinces" name="advancedJobSearch[provinces][]" class="input-sm form-control" size="1" multiple="multiple">
-                                            <option value="23">Hồ Chí Minh</option>
-                                            <option value="27">Hà Nội</option>
-                                            <option value="17">Đà Nẵng</option>
-                                            <option value="1">An Giang</option>
-                                            <option value="9">Bà Rịa - Vũng Tàu</option>
-                                            <option value="5">Bắc Cạn</option>
-                                            <option value="4">Bắc Giang</option>
-                                            <option value="6">Bạc Liêu</option>
-                                            <option value="7">Bắc Ninh</option>
-                                            <option value="11">Bến Tre</option>
-                                            <option value="3">Bình Định</option>
-                                            <option value="2">Bình Dương</option>
-                                            <option value="8">Bình Phước</option>
-                                            <option value="10">Bình Thuận</option>
-                                            <option value="13">Cà Mau</option>
-                                            <option value="14">Cần Thơ</option>
-                                            <option value="12">Cao Bằng</option>
-                                            <option value="16">Đắk Lắk</option>
-                                            <option value="18">Đăk Nông</option>
-                                            <option value="15">Điện Biên</option>
-                                            <option value="19">Đồng Nai</option>
-                                            <option value="20">Đồng Tháp</option>
-                                            <option value="21">Gia Lai</option>
-                                            <option value="25">Hà Giang</option>
-                                            <option value="28">Hà Nam</option>
-                                            <option value="30">Hà Tây</option>
-                                            <option value="31">Hà Tĩnh</option>
-                                            <option value="24">Hải Dương</option>
-                                            <option value="29">Hải Phòng</option>
-                                            <option value="26">Hậu Giang</option>
-                                            <option value="22">Hòa Bình</option>
-                                            <option value="32">Hưng Yên</option>
-                                            <option value="33">Kiên Giang</option>
-                                            <option value="34">Khánh Hòa</option>
-                                            <option value="35">Kon Tum</option>
-                                            <option value="65">Lai Châu</option>
-                                            <option value="38">Lâm Đồng</option>
-                                            <option value="39">Lạng Sơn</option>
-                                            <option value="66">Lào Cai</option>
-                                            <option value="36">Long An</option>
-                                            <option value="42">Nam Định</option>
-                                            <option value="40">Nghệ An</option>
-                                            <option value="41">Ninh Bình</option>
-                                            <option value="43">Ninh Thuận</option>
-                                            <option value="44">Phú Thọ</option>
-                                            <option value="45">Phú Yên</option>
-                                            <option value="46">Quảng Bình</option>
-                                            <option value="47">Quảng Nam</option>
-                                            <option value="49">Quảng Ngãi</option>
-                                            <option value="48">Quảng Ninh</option>
-                                            <option value="50">Quảng Trị</option>
-                                            <option value="52">Sóc Trăng</option>
-                                            <option value="51">Sơn La</option>
-                                            <option value="56">Tây Ninh</option>
-                                            <option value="53">Thái Bình</option>
-                                            <option value="57">Thái Nguyên</option>
-                                            <option value="55">Thanh Hóa</option>
-                                            <option value="74">Thừa Thiên - Huế</option>
-                                            <option value="54">Tiền Giang</option>
-                                            <option value="75">Trà Vinh</option>
-                                            <option value="73">Tuyên Quang</option>
-                                            <option value="76">Vĩnh Long</option>
-                                            <option value="77">Vĩnh Phúc</option>
-                                            <option value="78">Yên Bái</option>
-                                            <option value="79">Khác</option>
-                                            <option value="80">Nước Ngoài</option>
-                                            <option value="134">Nhật Bản</option>
+                                        <input type="text" id="advancedJobSearch_keywords" name="location" class="input-sm form-control" placeholder="Địa Điểm Của Bạn..." />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Giới Tính</label>
+                                        <select id="advancedJobSearch_educationLevels" name="gender" class="input-sm form-control" size="1">
+                                            <option value="">Chọn cấp bậc</option>
+                                            <option value="1">Nam</option>
+                                            <option value="2">Nữ</option>
+                                            <option value="0">Cả 2</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label">Trình độ học vấn</label>
-                                        <select id="advancedJobSearch_educationLevels" name="advancedJobSearch[educationLevels][]" class="input-sm form-control" size="1" multiple="multiple">
-                                            <option value="1">PTCS</option>
-                                            <option value="2">Trung học</option>
-                                            <option value="3">Chứng chỉ</option>
-                                            <option value="4">Trung cấp</option>
-                                            <option value="5">Cao đẳng</option>
-                                            <option value="6">Cử nhân</option>
-                                            <option value="7">Kỹ sư</option>
-                                            <option value="8">Thạc sĩ</option>
-                                            <option value="9">Thạc sĩ Nghệ thuật</option>
-                                            <option value="10">Thạc sĩ Thương mại</option>
-                                            <option value="11">Thạc sĩ Khoa học</option>
-                                            <option value="12">Thạc sĩ Kiến trúc</option>
-                                            <option value="13">Thạc sĩ QTKD</option>
-                                            <option value="14">Thạc sĩ Kỹ thuật ứng dụng</option>
-                                            <option value="15">Thạc sĩ Luật</option>
-                                            <option value="16">Thạc sĩ Y học</option>
-                                            <option value="17">Thạc sĩ Dược phẩm</option>
-                                            <option value="18">Tiến sĩ</option>
-                                            <option value="19">Khác</option>
+                                        <label class="control-label">Cấp Bậc</label>
+                                        <select id="advancedJobSearch_educationLevels" name="position_id" class="input-sm form-control" size="1">
+                                            <option value="">Chọn cấp bậc</option>
+                                            <option value="1">Sinh viên thực tập</option>
+                                            <option value="2">Mới tốt nghiệp</option>
+                                            <option value="3">Nhân viên</option>
+                                            <option value="4">Trưởng nhóm giám sát</option>
+                                            <option value="5">Quản lý</option>
+                                            <option value="6">Quản lý cấp cao</option>
+                                            <option value="7">Điều hành cấp cao</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label">Loại công việc</label>
-                                        <select id="advancedJobSearch_positionTypes" name="advancedJobSearch[positionTypes][]" class="input-sm form-control" size="1" multiple="multiple">
-                                            <option value="A">Toàn thời gian cố định</option>
-                                            <option value="B">Toàn thời gian tạm thời</option>
-                                            <option value="C">Bán thời gian</option>
-                                            <option value="D">Bán thời gian tạm thời</option>
-                                            <option value="E">Hợp đồng</option>
-                                            <option value="F">Khác</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label">Cấp bậc</label>
-                                        <select id="advancedJobSearch_careerLevels" name="advancedJobSearch[careerLevels][]" class="input-sm form-control" size="1" multiple="multiple">
-                                            <option value="I">Sinh viên/ Thực tập sinh</option>
-                                            <option value="N">Mới đi làm</option>
-                                            <option value="L">Nhân viên</option>
-                                            <option value="T">Kỹ thuật viên/Kỹ sư</option>
-                                            <option value="P">Trưởng nhóm / Giám sát</option>
-                                            <option value="M">Quản lý / Trưởng phòng</option>
-                                            <option value="D">Giám đốc</option>
-                                            <option value="S">Quản lý cấp cao</option>
-                                            <option value="E">Điều hành cấp cao</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label">Mức kinh nghiệm</label>
-                                        <select id="advancedJobSearch_experienceLevels" name="advancedJobSearch[experienceLevels][]" class="input-sm form-control" size="1" multiple="multiple">
-                                            <option value="A">0-1 năm kinh nghiệm</option>
-                                            <option value="B">1-2 năm kinh nghiệm</option>
-                                            <option value="C">2-5 năm kinh nghiệm</option>
-                                            <option value="D">5-10 năm kinh nghiệm</option>
-                                            <option value="E">Hơn 10 năm kinh nghiệm</option>
-                                        </select>
+                                        <label class="control-label">Kinh nghiệm</label>
+                                        <input type="number" id="advancedJobSearch_keywords" name="experience" class="input-sm form-control" placeholder="Kinh Nghiệm Của Bạn..." />
                                     </div>
 
                                     <div class="form-group">
                                         <label for="advancedJobSearch_salaryType" class="control-label">Mức lương</label>
 
                                         <div class="form-inline">
-                                            <select id="advancedJobSearch_salaryType" name="advancedJobSearch[salaryType]" class="input-sm form-control">
-                                                <option value="">Chọn</option>
-                                                <option value="I">Nhập</option>
-                                                <option value="M">Hơn</option>
-                                                <option value="N">Thương lượng</option>
-                                                <option value="C">Cạnh tranh</option>
-                                            </select>
-
-                                            <div class="salary-from-field" style="margin-top: 6px; margin-bottom: 6px;">
-                                                <input type="text" id="advancedJobSearch_salaryFrom" name="advancedJobSearch[salaryFrom]" data-pattern="digits" data-msg-digits="Please enter the minimum Salary" data-msg-required="Vui lòng nhập mức lương tối thiểu." data-rule-min="1" data-msg-min="Vui lòng nhập mức lương tối thiểu." class="input-sm form-control" size="14" />
-                                                <select id="advancedJobSearch_salaryFromMoney" name="advancedJobSearch[salaryFromMoney]" class="money-rate input-sm form-control">
-                                                    <option value="2">VNĐ</option>
-                                                    <option value="1">USD</option>
-                                                </select>
-                                            </div>
-                                            <div class="salary-to-field"> -
-                                                <input type="text" id="advancedJobSearch_salaryTo" name="advancedJobSearch[salaryTo]" data-pattern="digits" data-msg-digits="Please enter the maximum Salary" data-msg-required="Vui lòng nhập mức lương tối đa." data-rule-min="1" data-msg-min="Vui lòng nhập mức lương tối đa." data-rule-moreThan="#advancedJobSearch_salaryFrom" data-msg-moreThan="Vui lòng nhập mức lương chính xác" class="input-sm form-control" size="14" />
-                                                <select id="advancedJobSearch_salaryToMoney" name="advancedJobSearch[salaryToMoney]" class="money-rate input-sm form-control">
-                                                    <option value="2">VNĐ</option>
-                                                    <option value="1">USD</option>
-                                                </select>
-                                            </div>
-
-                                            <div class="error-block">
-                                            </div>
+                                            <input type="number" id="advancedJobSearch_keywords" name="salary" class="input-sm form-control" placeholder="Lương..." />
                                         </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="control-label">Công việc đăng trong vòng</label>
-                                        <p class="form-inline">
-                                            <select id="advancedJobSearch_postedWithIn" name="advancedJobSearch[postedWithIn]" class="input-sm form-control">
-                                                <option value="">Chọn</option>
-                                                <option value="1">Hôm nay</option>
-                                                <option value="2">2 ngày</option>
-                                                <option value="3">3 ngày</option>
-                                                <option value="4">4 ngày</option>
-                                                <option value="5">5 ngày</option>
-                                                <option value="6">6 ngày</option>
-                                                <option value="7">7 ngày</option>
-                                                <option value="8">8 ngày</option>
-                                                <option value="9">9 ngày</option>
-                                                <option value="10">10 ngày</option>
-                                                <option value="11">11 ngày</option>
-                                                <option value="12">12 ngày</option>
-                                                <option value="13">13 ngày</option>
-                                                <option value="14">14 ngày</option>
-                                                <option value="15">15 ngày</option>
-                                                <option value="16">16 ngày</option>
-                                                <option value="17">17 ngày</option>
-                                                <option value="18">18 ngày</option>
-                                                <option value="19">19 ngày</option>
-                                                <option value="20">20 ngày</option>
-                                                <option value="21">21 ngày</option>
-                                                <option value="22">22 ngày</option>
-                                                <option value="23">23 ngày</option>
-                                                <option value="24">24 ngày</option>
-                                                <option value="25">25 ngày</option>
-                                                <option value="26">26 ngày</option>
-                                                <option value="27">27 ngày</option>
-                                                <option value="28">28 ngày</option>
-                                                <option value="29">29 ngày</option>
-                                                <option value="30">30 ngày</option>
-                                            </select>
-                                        </p>
                                     </div>
                                     <div class="form-group">
                                         <input type="submit" class="btn btn-primary" value="Tìm kiếm" />

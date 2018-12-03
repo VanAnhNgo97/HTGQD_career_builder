@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Job;
+use DB;
 
 class AdminController extends Controller
 {
@@ -80,5 +81,42 @@ class AdminController extends Controller
         $job=Job::find($id);
         $job->delete();
         return redirect('admin/trang-chu');
+    }
+
+    public function postSearchWork(Request $req)
+    {
+        $gender=$req->gender;
+        $career_id=$req->career_id;
+        $location=$req->location;
+        $position_id=$req->position_id;
+        $experience=$req->experience;
+        $salary=$req->salary;
+        $age=$req->age;
+        echo "Mã nghề: ".$career_id;
+        echo "Địa Điểm: ".$location;
+        echo "Mã cấp bậc:".$position_id;
+        echo "Kinh nghiệm:".$experience;
+        echo "Lương:".$salary;
+        echo "Tuổi:".$age;
+        $jobs=null;
+        if ($gender==0) {
+            $jobs=Job::select(DB::raw('gender,min_age,max_age,salary,career_id,position_id,experience,soft_skill'))
+            ->where('gender',0)
+            ->where('min_age','<=',$age)
+            ->where('max_age','>=',$age)
+            ->where('experience','<=',$experience)
+            ->get();
+        } else {
+            $jobs=Job::select(DB::raw('gender,min_age,max_age,salary,career_id,position_id,experience,soft_skill'))
+            ->where('gender',0)
+            ->orWhere('gender',$gender)
+            ->where('min_age','<=',$age)
+            ->where('max_age','>=',$age)
+            ->where('experience','<=',$experience)
+            ->get();
+        }
+        
+        var_dump($jobs);
+        //Đây là chỗ Topsis
     }
 }

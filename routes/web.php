@@ -28,3 +28,5 @@ Route::get('admin/sua-trong-so','AdminController@getEdit')->name('getEdit');
 Route::post('admin/them-cong-viec','AdminController@postAddWork')->name('postAddWork');
 
 Route::get('admin/xoa-cong-viec/{id}','AdminController@getDeleteJob')->name('getDeleteJob');
+
+Route::post('tim-kiem','AdminController@postSearchWork')->name('postSearchWork');
