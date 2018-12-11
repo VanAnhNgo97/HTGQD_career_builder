@@ -30,3 +30,9 @@ Route::post('admin/them-cong-viec','AdminController@postAddWork')->name('postAdd
 Route::get('admin/xoa-cong-viec/{id}','AdminController@getDeleteJob')->name('getDeleteJob');
 
 Route::post('tim-kiem','AdminController@postSearchWork')->name('postSearchWork');
+
+Route::post('lay-danh-sach-dia-diem','AdminController@postListLocation')->name('postListLocation');
+
+Route::get('test',function(){
+	return view('client.pages.test');
+});

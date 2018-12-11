@@ -6,6 +6,9 @@
 
 @section('head')
 	<link rel="stylesheet" type="text/css" href="{{ asset('styles/fontawesome/styles.min.css') }}">
+    <script src="{{ asset('admin/scripts/jquery.min.js') }}"></script>
+    <script src="http://maps.google.com/maps?file=api&v=2&key=ABQIAAAA7j_Q-rshuWkc8HyFI4V2HxQYPm-xtd00hTQOC0OXpAMO40FHAxT29dNBGfxqMPq5zwdeiDSHEPL89A" type="text/javascript"></script>
+    
 @endsection
 
 @section('content')
@@ -176,13 +179,13 @@
                     <div class="search-form-right-col-container">
                         <div class="panel panel-form modify-search-container">
                             <div class="panel-heading">
-                                <h3 class="panel-title">Sửa yêu cầu tìm việc làm</h3>
+                                <h3 class="panel-title">Tìm việc làm</h3>
                             </div>
                             <div class="panel-body">
                                 <form id="searchFormRightCol" action="{{ route('postSearchWork') }}" method="post" role="form">
                                     <div class="form-group">
                                         <label class="control-label">Ngành nghề</label>
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
                                         <select id="advancedJobSearch_categories" name="career_id" class="input-sm form-control" size="1" >
                                             <option value="">Chọn ngành nghề</option>
                                             <option value="1">CNTT Phần Mềm</option>
@@ -199,15 +202,15 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label">Tuổi</label>
-                                        <input type="text" id="advancedJobSearch_keywords" name="age" class="input-sm form-control" placeholder="Tuổi Của Bạn..." />
+                                        <input type="number" id="age" name="age" class="input-sm form-control" placeholder="Tuổi Của Bạn..." />
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label">Địa điểm</label>
-                                        <input type="text" id="advancedJobSearch_keywords" name="location" class="input-sm form-control" placeholder="Địa Điểm Của Bạn..." />
+                                        <input type="text" id="location" name="location" class="input-sm form-control" placeholder="Địa Điểm Của Bạn..." />
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label">Giới Tính</label>
-                                        <select id="advancedJobSearch_educationLevels" name="gender" class="input-sm form-control" size="1">
+                                        <select id="gender" name="gender" class="input-sm form-control" size="1">
                                             <option value="">Chọn cấp bậc</option>
                                             <option value="1">Nam</option>
                                             <option value="2">Nữ</option>
@@ -229,7 +232,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label">Kinh nghiệm</label>
-                                        <input type="number" id="advancedJobSearch_keywords" name="experience" class="input-sm form-control" placeholder="Kinh Nghiệm Của Bạn..." />
+                                        <input type="number" id="experience" name="experience" class="input-sm form-control" placeholder="Kinh Nghiệm Của Bạn..." />
                                     </div>
 
                                     <div class="form-group">
@@ -240,7 +243,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <input type="submit" class="btn btn-primary" value="Tìm kiếm" />
+                                        <input type="button" id="btnSearch" class="btn btn-primary" value="Tìm kiếm" url='{{ route('postListLocation') }}'/>
                                     </div>
 
                                     <input type="hidden" name="view" value="headline" />
@@ -599,5 +602,11 @@
             });
         });
     </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            geocoder = new GClientGeocoder();
+        });
+    </script>
+    <script type="text/javascript" src="{{ asset('js/calculateDistance.js') }}"></script>
     <div id="messenger-widget"></div>
 @endsection
