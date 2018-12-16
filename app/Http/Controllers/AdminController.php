@@ -147,7 +147,6 @@ class AdminController extends Controller
             ->get();
         }
         
-        // var_dump($jobs);
         //Đây là chỗ Topsis
         $mang_trong_so = [1,1,1,1,1,1,1];
         $careers = array();
@@ -194,9 +193,7 @@ class AdminController extends Controller
             $positions_norm += pow($positions[$i],2);
             $soft_skill_norm += pow($soft_skills[$i],2);
         }
-        // echo "---------------------";
-        // var_dump($salarys);
-        // echo "-----------------";
+
         for($i=0;$i<count($ages);$i++){
             $ages[$i] /= sqrt($ages_norm);
             $career_sim[$i] /= sqrt($career_sim_norm);
@@ -206,7 +203,6 @@ class AdminController extends Controller
             $positions[$i] /= sqrt($positions_norm);
             $soft_skills[$i] /= sqrt($soft_skill_norm);
         }
-        // var_dump($ages);
 
         for($i=0;$i<count($ages);$i++){
             $ages[$i] *= $mang_trong_so[0];
@@ -261,8 +257,12 @@ class AdminController extends Controller
             $job_score[$job->id] = $score[$i];
             $i++;
         }
+        echo "<pre>";
+        var_dump($jobs);
+        echo "</pre>";
+        echo "========";
+        echo "</br>";
         var_dump($job_score);
-
 
     }
 }

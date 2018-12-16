@@ -243,7 +243,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <input type="button" id="btnSearch" class="btn btn-primary" value="Tìm kiếm" url='{{ route('postListLocation') }}'/>
+                                        <input type="submit" id="btnSearch" class="btn btn-primary" value="Tìm kiếm" url='{{ route('postListLocation') }}'/>
                                     </div>
 
                                     <input type="hidden" name="view" value="headline" />
@@ -607,6 +607,6 @@
             geocoder = new GClientGeocoder();
         });
     </script>
-    <script type="text/javascript" src="{{ asset('js/calculateDistance.js') }}"></script>
+   {{--  <script type="text/javascript" src="{{ asset('js/calculateDistance.js') }}"></script> --}}
     <div id="messenger-widget"></div>
 @endsection
