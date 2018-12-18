@@ -175,7 +175,7 @@ class AdminController extends Controller
             $experiences[]=($experience - $job->experience);
             $positions[]=($job->position_id-$position_id);
             $soft_skills[]=($soft_skill - $job->soft_skill);
-            # code...
+            // code...
         }
         $ages_norm = 0;
         $career_sim_norm = 0;

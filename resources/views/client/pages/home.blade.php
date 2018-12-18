@@ -211,7 +211,7 @@
                                     <div class="form-group">
                                         <label class="control-label">Giới Tính</label>
                                         <select id="gender" name="gender" class="input-sm form-control" size="1">
-                                            <option value="">Chọn cấp bậc</option>
+                                            <option value="">Chọn giới tính</option>
                                             <option value="1">Nam</option>
                                             <option value="2">Nữ</option>
                                             <option value="0">Cả 2</option>
@@ -232,14 +232,14 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label">Kinh nghiệm</label>
-                                        <input type="number" id="experience" name="experience" class="input-sm form-control" placeholder="Kinh Nghiệm Của Bạn..." />
+                                        <input type="number" id="experience" name="experience" class="input-sm form-control" placeholder="Kinh Nghiệm Của Bạn...(năm)" min="1" />
                                     </div>
 
                                     <div class="form-group">
                                         <label for="advancedJobSearch_salaryType" class="control-label">Mức lương</label>
 
                                         <div class="form-inline">
-                                            <input type="number" id="advancedJobSearch_keywords" name="salary" class="input-sm form-control" placeholder="Lương..." />
+                                            <input type="number" id="advancedJobSearch_keywords" name="salary" class="input-sm form-control" placeholder="Lương...(triệu)" min="1" />
                                         </div>
                                     </div>
                                     <div class="form-group">
