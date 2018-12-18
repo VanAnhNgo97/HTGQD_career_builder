@@ -13,7 +13,7 @@
 
 Route::get('/','ClientController@getHome')->name('getHome');
 
-Route::get('cong-viec/{id}','ClientController@getWorkInfo')->name('getWorkInfo');
+Route::get('cong-viec','ClientController@getWorkInfo')->name('getWorkInfo');
 
 Route::get('admin/trang-chu','AdminController@getHome')->name('getAdminHome');
 
