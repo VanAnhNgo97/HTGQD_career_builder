@@ -13,7 +13,7 @@ class ClientController extends Controller
 
     public function getWorkInfo(Request $request)
     {
-    	$id = $request->id
+    	$id = $request->id;
     	return view('client.pages.work_info');
     }
 }
