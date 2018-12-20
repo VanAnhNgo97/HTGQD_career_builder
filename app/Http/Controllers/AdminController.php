@@ -52,7 +52,7 @@ class AdminController extends Controller
         $location = $req->location;
         $job=new Job;
         $job->add($name,$gender,$minage,$minage,$career_id,$position_id,$salary,$experience,$soft_skill,$location,$description,$requirement,$benefits);
-        return redirect('adminthem-cong-viec');
+        return redirect('admin/them-cong-viec');
     }
 
     public function postEditWork(Request $req)
@@ -77,14 +77,14 @@ class AdminController extends Controller
 
 
         $job->edit($name,$gender,$minage,$minage,$career_id,$position_id,$salary,$experience,$soft_skill,$location,$description,$requirement,$benefits);
-        return redirect('admintrang-chu');
+        return redirect('admin/trang-chu');
     }
 
     public function getDeleteJob($id)
     {
         $job=Job::find($id);
         $job->delete();
-        return redirect('admintrang-chu');
+        return redirect('admin/trang-chu');
     }
 
     public function postListLocation(Request $req)
@@ -99,20 +99,16 @@ class AdminController extends Controller
             ->where('experience','<=',$experience)
             ->get();
         } else {
-            $jobs=Job::where('gender',0)
-            ->orWhere('gender',$gender)
-            ->where('min_age','<=',$age)
-            ->where('max_age','>=',$age)
-            ->where('experience','<=',$experience)
+            $jobs=Job::whereRaw('min_age<='.$age.' and max_age>='.$age.' and experience<='.$experience.' and (gender=0 or gender='.$gender.')')
             ->get();
         }
-
         $locations=array();
         if(count($jobs)>0){
             foreach ($jobs as $job) {
                 $locations[$job->id]=$job->location; 
             }
         }
+        // echo count($locations);
         return $locations;
 
     }
@@ -127,6 +123,8 @@ class AdminController extends Controller
         $salary=(int)$req->salary;
         $age=(int)$req->age;
         $soft_skill=(int)$req->soft_skill;
+        $khoangcachs=array_filter(explode(",",$req->khoangcachs));
+        // var_dump($khoangcachs);
         // echo "Mã nghề: ".$career_id;
         // echo "Địa Điểm: ".$location;
         // echo "Mã cấp bậc:".$position_id;
@@ -141,11 +139,7 @@ class AdminController extends Controller
             ->where('experience','<=',$experience)
             ->get();
         } else {
-            $jobs=Job::where('gender',0)
-            ->orWhere('gender',$gender)
-            ->where('min_age','<=',$age)
-            ->where('max_age','>=',$age)
-            ->where('experience','<=',$experience)
+            $jobs=Job::whereRaw('min_age<='.$age.' and max_age>='.$age.' and experience<='.$experience.' and (gender=0 or gender='.$gender.')')
             ->get();
         }
         $weights=Weight::select('weight')->get()->toArray();
@@ -264,12 +258,7 @@ class AdminController extends Controller
             $i++;
         }
         // echo "<pre>";
-        // var_dump($jobs[0]);
-        
-        // echo "</pre>";
-        // echo "========";
-        // echo "</br>";
-        // var_dump($job_score);
+        // var_dump($jobs);
         return view('client.pages.copy',['jobs'=>$jobs]);  
     }
 }
