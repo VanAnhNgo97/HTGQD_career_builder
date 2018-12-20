@@ -74,7 +74,9 @@
 
                     <div class="text-center search-result-paginator" id="pagination">
                         <nav>
+                            @if($paginate)
                             {{ $jobs->links() }}
+                            @endif
                         </nav>
                     </div>
                 </div>

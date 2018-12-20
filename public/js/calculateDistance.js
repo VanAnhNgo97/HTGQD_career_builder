@@ -63,7 +63,7 @@ function calculateDistances(origin, destinations){
         $('#khoangcachs').val(distances);
         $('#searchFormRightCol').submit();
 
-    }, 3000);
+    }, 1000);
     
 }
 

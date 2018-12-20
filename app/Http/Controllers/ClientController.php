@@ -10,7 +10,7 @@ class ClientController extends Controller
     public function getHome()
     {
     	$jobs=Job::paginate(10);
-    	return view('client.pages.home',['jobs'=>$jobs]);
+    	return view('client.pages.home',['jobs'=>$jobs, 'paginate'=>true]);
     }
 
     public function getWorkInfo(Request $request)

@@ -42,19 +42,31 @@
                             <div class="list-group-item bold-red">
                                 <h2 class="list-group-item-heading">
                                     <i class="saved-job-star fa fa-star-o" data-title="Lưu việc làm này" data-job-id="1389075"></i>
-                                    <a target="_blank" href="{{ route('getWorkInfo') }}">Kế Toán Tổng Hợp (Yêu cầu Nam giới)
+                                    <a target="_blank" href="{{ route('getWorkInfo',['id' => $job->id]) }}">{{$job->name}}
+                                        @if($job->gender == 1)
+                                            (Yêu cầu Nam giới)
+                                        @elseif($job->gender == 2)
+                                            (Yêu cầu Nữ giới)
+                                        @else
+                                            (Yêu cầu cả Nam và Nữ)
+                                        @endif
                                     </a>
                                 </h2>
                                 <div class="list-group-item-text clearfix">
                                     <p class="priority-data">
-                                        <a class="text-accent" href="">Công Ty TNHH Minh Long</a> -
-                                        <a href="" title="View Jobs at Location: Hà Nội">Hà Nội</a>, <a href="" title="View Jobs at Location: Hưng Yên">Hưng Yên</a>
+                                        <a class="text-accent" href="javascript:void(0)">{{$job->location}}</a> 
+                                        <!-- -
+                                        <a href="javascript:void(0)" title="View Jobs at Location: Hà Nội">Hà Nội</a>, <a href="" title="View Jobs at Location: Hưng Yên">Hưng Yên</a> -->
                                     </p>
                                     <div class="pull-left">
-                                        <small>9,000,000VNĐ - 712,000,000VNĐ|Nhân viên                                                
+                                        <small>{{$job->salary . ",000,000"}}             
                                         </small>
                                     </div>
-                                    <p class="date pull-right"><small>01/12/2018</small></p>
+                                    <p class="date pull-right">
+                                        <small>
+                                            {{$job->created_at->format('d-m-Y')}}
+                                        </small>
+                                    </p>
                                 </div>
                             </div>
                             @endforeach                            
@@ -147,7 +159,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <input type="submit" id="btnSearch" class="btn btn-primary" value="Tìm kiếm"  url='{{ route('postListLocation') }}' getLocations='{{ route('postListLocation') }}'/>
+                                        <input type="button" id="btnSearch" class="btn btn-primary" value="Tìm kiếm"  url='{{ route('postListLocation') }}' getLocations='{{ route('postListLocation') }}'/>
                                     </div>
 
                                     <input type="hidden" name="view" value="headline" />
@@ -405,7 +417,7 @@
             geocoder = new GClientGeocoder();
         });
     </script> --}}
-    {{-- <script type="text/javascript" src="{{ asset('js/calculateDistance.js') }}"></script> --}}
+    <script type="text/javascript" src="{{ asset('js/calculateDistance.js') }}"></script>
     <div id="messenger-widget"></div>
 
 

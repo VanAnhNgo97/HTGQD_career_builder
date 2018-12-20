@@ -124,6 +124,7 @@ class AdminController extends Controller
         $age=(int)$req->age;
         $soft_skill=(int)$req->soft_skill;
         $khoangcachs=array_filter(explode(",",$req->khoangcachs));
+        // $khoangcachs=$req->khoangcachs;
         // var_dump($khoangcachs);
         // echo "Mã nghề: ".$career_id;
         // echo "Địa Điểm: ".$location;
@@ -131,6 +132,7 @@ class AdminController extends Controller
         // echo "Kinh nghiệm:".$experience;
         // echo "Lương:".$salary;
         // echo "Tuổi:".$age;
+        // var_dump($khoangcachs);
         $jobs=null;
         if ($gender==0) {
             $jobs=Job::where('gender',0)
@@ -171,11 +173,10 @@ class AdminController extends Controller
             $ages[] = ($job->minage - $age);
             $career_sim[] = $careers[$career_id][$job->career_id-1];
             $salarys[]= ($job->salary*1000000 - $salary);
-            $distances[] = 1;
+            $distances[] = 1 / ($khoangcachs[$job->id]);
             $experiences[]=($experience - $job->experience);
             $positions[]=($job->position_id-$position_id);
             $soft_skills[]=($soft_skill - $job->soft_skill);
-            // code...
         }
         $ages_norm = 0;
         $career_sim_norm = 0;
@@ -259,6 +260,7 @@ class AdminController extends Controller
         }
         // echo "<pre>";
         // var_dump($jobs);
-        return view('client.pages.copy',['jobs'=>$jobs]);  
+        // var_dump($job_score);
+        return view('client.pages.home',['jobs'=>$jobs, 'paginate'=>false]);  
     }
 }
