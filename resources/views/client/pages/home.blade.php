@@ -7,8 +7,7 @@
 @section('head')
 	<link rel="stylesheet" type="text/css" href="{{ asset('styles/fontawesome/styles.min.css') }}">
     <script src="{{ asset('admin/scripts/jquery.min.js') }}"></script>
-    <script src="http://maps.google.com/maps?file=api&v=2&key=ABQIAAAA7j_Q-rshuWkc8HyFI4V2HxQYPm-xtd00hTQOC0OXpAMO40FHAxT29dNBGfxqMPq5zwdeiDSHEPL89A" type="text/javascript"></script>
-    
+    <script src="http://maps.google.com/maps?file=api&v=2&key=AIzaSyDbkOBi-458tGiaTCpyZmddDXrPv6klvBc" type="text/javascript"></script>
 @endsection
 
 @section('content')
@@ -29,37 +28,6 @@
             </div>
             <div class="row">
                 <div class="col-sm-9">
-                    <div class="row">
-                        <div class="col-md-7">
-                            <p class="lead-sm">
-                                Tìm thấy 1,352 việc làm đáp ứng yêu cầu tìm kiếm của bạn: Ngành nghề - <strong>"CNTT - Phần mềm"</strong>
-                            </p>
-                        </div>
-                        <div class="col-md-5 text-right">
-                            <p class="form-inline">
-                                <span class="hidden-xs">Sắp xếp</span>
-                                <select class="form-control input-sm sort-changer">
-                                    <option value=''>Ngày cập nhật</option>
-                                    <option value=''>Ngày đăng</option>
-                                </select>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="clearfix">
-                        <dl id="switch-view" class="dl-horizontal pull-left">
-                            <dt class="hidden-xs">Xem:</dt>
-                            <dd>
-                                <label class="radio-inline">
-                                    <input name="view" type="radio" value="detail" /> 
-                                    Chi tiết 
-                                </label>
-                                <label class="radio-inline">
-                                    <input checked="checked" name="view" type="radio" value="headline" /> 
-                                    Tóm tắt 
-                                </label>
-                            </dd>
-                        </dl>
-                    </div>
                     <form id="save-job-form" name="frmForm" action="" method="get">
                         <input type="hidden" name="current_route" value="_job_search_by_category" />
                         <input type="hidden" name="current_route_params[category_name]" value="cntt-phan-mem" />
@@ -67,6 +35,7 @@
                         <input type="hidden" name="current_route_params[view]" value="headline" />
                         <input type="hidden" name="current_page" value="1" />
                         <div class="list-group list-search-result-group tlp headline">
+                            @foreach ($jobs as $job)
                             <div class="list-group-item bold-red">
                                 <h2 class="list-group-item-heading">
                                     <i class="saved-job-star fa fa-star-o" data-title="Lưu việc làm này" data-job-id="1389075"></i>
@@ -85,70 +54,13 @@
                                     <p class="date pull-right"><small>01/12/2018</small></p>
                                 </div>
                             </div>
-
-                            <div class="list-group-item">
-                                <h2 class="list-group-item-heading">
-                                    <i class="saved-job-star fa fa-star-o" data-title="Lưu việc làm này" data-job-id="1400697"></i>
-                                    <a target="_blank" href="{{ route('getWorkInfo') }}">Nhân Viên Chụp Ảnh (Photographer)
-                                    </a>
-                                </h2>
-
-                                <div class="list-group-item-text clearfix">
-                                    <p class="priority-data">
-                                        <a class="text-accent" href="">Công Ty Cổ Phần M2 Việt Nam</a> -
-                                        <a href="" title="View Jobs at Location: Hà Nội">Hà Nội</a>
-                                    </p>
-                                    <div class="pull-left">
-                                        <small>12,000,000VNĐ|Nhân viên                                                
-                                        </small>
-                                    </div>
-                                    <p class="date pull-right"><small>01/12/2018</small></p>
-                                </div>
-                            </div>
-
-                            <div class="list-group-item bold-red">
-                                <h2 class="list-group-item-heading">
-                                    <i class="saved-job-star fa fa-star-o" data-title="Lưu việc làm này" data-job-id="1389075"></i>
-                                    <a target="_blank" href="{{ route('getWorkInfo') }}">Kế Toán Tổng Hợp (Yêu cầu Nam giới)
-                                    </a>
-                                </h2>
-                                <div class="list-group-item-text clearfix">
-                                    <p class="priority-data">
-                                        <a class="text-accent" href="">Công Ty TNHH Minh Long</a> -
-                                        <a href="" title="View Jobs at Location: Hà Nội">Hà Nội</a>, <a href="" title="View Jobs at Location: Hưng Yên">Hưng Yên</a>
-                                    </p>
-                                    <div class="pull-left">
-                                        <small>9,000,000VNĐ - 712,000,000VNĐ|Nhân viên                                                
-                                        </small>
-                                    </div>
-                                    <p class="date pull-right"><small>01/12/2018</small></p>
-                                </div>
-                            </div>
-
-                            <div class="list-group-item bold-red">
-                                <h2 class="list-group-item-heading">
-                                    <i class="saved-job-star fa fa-star-o" data-title="Lưu việc làm này" data-job-id="1389075"></i>
-                                    <a target="_blank" href="{{ route('getWorkInfo') }}">Kế Toán Tổng Hợp (Yêu cầu Nam giới)
-                                    </a>
-                                </h2>
-                                <div class="list-group-item-text clearfix">
-                                    <p class="priority-data">
-                                        <a class="text-accent" href="">Công Ty TNHH Minh Long</a> -
-                                        <a href="" title="View Jobs at Location: Hà Nội">Hà Nội</a>, <a href="/tim-viec-lam-tai/hung-yen/HY" title="View Jobs at Location: Hưng Yên">Hưng Yên</a>
-                                    </p>
-                                    <div class="pull-left">
-                                        <small>9,000,000VNĐ - 712,000,000VNĐ|Nhân viên                                                
-                                        </small>
-                                    </div>
-                                    <p class="date pull-right"><small>01/12/2018</small></p>
-                                </div>
-                            </div>
+                            @endforeach                            
                         </div>
                     </form>
 
-                    <div class="text-center search-result-paginator">
+                    <div class="text-center search-result-paginator" id="pagination">
                         <nav>
-                            <ul class="pagination">
+                            {{-- <ul class="pagination">
                                 <li class="active"><a href="#">1</a></li>
                                 <li><a href="">2</a></li>
                                 <li><a href="">3</a></li>
@@ -159,21 +71,10 @@
                                 <li class="omit"><span>...</span></li>
                                 <li><a href="">28</a></li>
                                 <li><a href=""><span aria-hidden="true">&raquo;</span><span class="sr-only">Tiếp tục</span></a></li>
-                            </ul>
+                            </ul> --}}
+                            {{ $jobs->links() }}
                         </nav>
                     </div>
-
-                    <ul class="list-inline text-center share-buttons ">
-                        <li>
-                            <a href="" target="_blank" class="facebook" onclick="ga('send', 'event', 'Fixed Share Buttons for PC', 'Click', 'Facebook', 1);"><img src="{{ asset('images/common/btn/text-facebook.png?v522') }}" width="32" height="32" /></a>
-                        </li>
-                        <li>
-                            <a href="" target="_blank" class="google-plus" onclick="ga('send', 'event', 'Fixed Share Buttons for PC', 'Click', 'Google+', 1);"><img src="{{ asset('images/common/btn/btn_google+_signin_dark_normal_web@2x.png?v522') }}" width="32" height="32" /></a>
-                        </li>
-                        <li><a href="" target="_blank" class="linkedin" onclick="ga('send', 'event', 'Fixed Share Buttons for PC', 'Click', 'LinkedIn', 1);"><i class="fa fa-linkedin fa-2x"></i></a></li>
-                        <li><a href="" target="_blank" class="twitter" onclick="ga('send', 'event', 'Fixed Share Buttons for PC', 'Click', 'Twitter', 1);"><i class="fa fa-twitter fa-2x"></i></a></li>
-                        <li><a href="mailto:?subject=" class="envelope" onclick="ga('send', 'event', 'Fixed Share Buttons for PC', 'Click', 'Mail', 1);"><i class="fa fa-envelope fa-2x"></i></a></li>
-                    </ul>
                 </div>
                 <div class="col-sm-3">
                     <div class="search-form-right-col-container">
@@ -243,120 +144,12 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <input type="submit" id="btnSearch" class="btn btn-primary" value="Tìm kiếm" url='{{ route('postListLocation') }}'/>
+                                        <input type="button" id="btnSearch" class="btn btn-primary" value="Tìm kiếm" url='{{ route('postListLocation') }}' getLocations='{{ route('postListLocation') }}'/>
                                     </div>
 
                                     <input type="hidden" name="view" value="headline" />
 
                                 </form>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="panel panel-related-links">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Việc làm CNTT - Phần mềm</h3>
-                        </div>
-                        <div class="panel-body">
-                            <ul class="list-unstyled">
-                                <li>
-                                    <a href='/tim-viec-lam-tai/ha-noi/HN/c/cntt-phan-mem/19'>Hà Nội</a>
-                                </li>
-                                <li>
-                                    <a href='/tim-viec-lam-tai/ho-chi-minh/HCM/c/cntt-phan-mem/19'>Hồ Chí Minh</a>
-                                </li>
-                                <li>
-                                    <a href='/tim-viec-lam-tai/da-nang/DN/c/cntt-phan-mem/19'>Đà Nẵng</a>
-                                </li>
-                                <li>
-                                    <a href='/tim-viec-lam-tai/binh-duong/BD/c/cntt-phan-mem/19'>Bình Dương</a>
-                                </li>
-                                <li>
-                                    <a href='/tim-viec-lam-tai/nhat-ban/JP/c/cntt-phan-mem/19'>Nhật Bản</a>
-                                </li>
-                                <li>
-                                    <a href='/tim-viec-lam-tai/dong-nai/DNI/c/cntt-phan-mem/19'>Đồng Nai</a>
-                                </li>
-                                <li>
-                                    <a href='/tim-viec-lam-tai/bac-ninh/BN/c/cntt-phan-mem/19'>Bắc Ninh</a>
-                                </li>
-                                <li>
-                                    <a href='/tim-viec-lam-tai/hai-phong/HP/c/cntt-phan-mem/19'>Hải Phòng</a>
-                                </li>
-                                <li>
-                                    <a href='/tim-viec-lam-tai/long-an/LA/c/cntt-phan-mem/19'>Long An</a>
-                                </li>
-                                <li>
-                                    <a href='/tim-viec-lam-tai/ba-ria-vung-tau/BRVT/c/cntt-phan-mem/19'>Bà Rịa - Vũng Tàu</a>
-                                </li>
-                                <li>
-                                    <a href='/tim-viec-lam-tai/quang-ninh/QNH/c/cntt-phan-mem/19'>Quảng Ninh</a>
-                                </li>
-                                <li>
-                                    <a href='/tim-viec-lam-tai/thua-thien-hue/TTH/c/cntt-phan-mem/19'>Thừa Thiên - Huế</a>
-                                </li>
-                                <li>
-                                    <a href='/tim-viec-lam-tai/lam-dong/LD/c/cntt-phan-mem/19'>Lâm Đồng</a>
-                                </li>
-                                <li>
-                                    <a href='/tim-viec-lam-tai/quang-nam/QN/c/cntt-phan-mem/19'>Quảng Nam</a>
-                                </li>
-                                <li>
-                                    <a href='/tim-viec-lam-tai/nghe-an/NA/c/cntt-phan-mem/19'>Nghệ An</a>
-                                </li>
-                                <li>
-                                    <a href='/tim-viec-lam-tai/hung-yen/HY/c/cntt-phan-mem/19'>Hưng Yên</a>
-                                </li>
-                                <li>
-                                    <a href='/tim-viec-lam-tai/khanh-hoa/KH/c/cntt-phan-mem/19'>Khánh Hòa</a>
-                                </li>
-                                <li>
-                                    <a href='/tim-viec-lam-tai/tay-ninh/TN/c/cntt-phan-mem/19'>Tây Ninh</a>
-                                </li>
-                                <li>
-                                    <a href='/tim-viec-lam-tai/bac-giang/BG/c/cntt-phan-mem/19'>Bắc Giang</a>
-                                </li>
-                                <li>
-                                    <a href='/tim-viec-lam-tai/binh-phuoc/BP/c/cntt-phan-mem/19'>Bình Phước</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="recommend-jobs-container">
-                        <div class="page-header" style="margin-top: 35px; margin-bottom: 0; padding-bottom: 0;">
-                            <h3>Gợi Ý Việc Làm</h3>
-                        </div>
-                        <div class="list-group list-search-result-group recommend-jobs clearfix">
-                            <div class="list-group-item" style="padding-bottom: 10px;">
-                                <h2 class="list-group-item-heading">
-                                    <i class="saved-job-star fa fa-star-o" data-title="Lưu việc làm này" data-job-id="1381431" data-tid="cyxvbsdlzv8xiaqtd20fvn6gx81ndq3n"></i>
-                                    <a target="_blank" href="/tim-viec-lam/nhan-vien-giam-sat-ky-thuat-tai-tttm-melinh-plaza-ha-dong/1381431?tid=cyxvbsdlzv8xiaqtd20fvn6gx81ndq3n&utm_source=site&utm_medium=job_search_result_1&utm_content=default">Nhân Viên Giám Sát Kỹ Thuật Tại TTTM Melinh Plaza Hà Đông</a>
-                                    <span><i class="fa fa-thumbs-up"></i></span>
-                                </h2>
-                                <div class="list-group-item-text clearfix">
-                                    <p class="priority-data">
-                                        <a class="text-accent" href="/viec-lam-cua/cong-ty-co-phan-eurowindow-holding/29970?tid=cyxvbsdlzv8xiaqtd20fvn6gx81ndq3n&utm_source=site&utm_medium=job_search_result_1&utm_content=default">Công Ty Cổ Phần Eurowindow Holding</a> -
-                                        <a href="/tim-viec-lam-tai/ha-noi/HN?tid=cyxvbsdlzv8xiaqtd20fvn6gx81ndq3n&utm_source=site&utm_medium=job_search_result_1&utm_content=default" title="View Jobs at Location: Hà Nội">Hà Nội</a> </p>
-                                    <div class="pull-left">
-                                        <small>Cạnh tranh</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="list-group-item" style="padding-bottom: 10px;">
-                                <h2 class="list-group-item-heading">
-                                    <i class="saved-job-star fa fa-star-o" data-title="Lưu việc làm này" data-job-id="1381431" data-tid="cyxvbsdlzv8xiaqtd20fvn6gx81ndq3n"></i>
-                                    <a target="_blank" href="/tim-viec-lam/nhan-vien-giam-sat-ky-thuat-tai-tttm-melinh-plaza-ha-dong/1381431?tid=cyxvbsdlzv8xiaqtd20fvn6gx81ndq3n&utm_source=site&utm_medium=job_search_result_1&utm_content=default">Nhân Viên Giám Sát Kỹ Thuật Tại TTTM Melinh Plaza Hà Đông</a>
-                                    <span><i class="fa fa-thumbs-up"></i></span>
-                                </h2>
-                                <div class="list-group-item-text clearfix">
-                                    <p class="priority-data">
-                                        <a class="text-accent" href="/viec-lam-cua/cong-ty-co-phan-eurowindow-holding/29970?tid=cyxvbsdlzv8xiaqtd20fvn6gx81ndq3n&utm_source=site&utm_medium=job_search_result_1&utm_content=default">Công Ty Cổ Phần Eurowindow Holding</a> -
-                                        <a href="/tim-viec-lam-tai/ha-noi/HN?tid=cyxvbsdlzv8xiaqtd20fvn6gx81ndq3n&utm_source=site&utm_medium=job_search_result_1&utm_content=default" title="View Jobs at Location: Hà Nội">Hà Nội</a> </p>
-                                    <div class="pull-left">
-                                        <small>Cạnh tranh</small>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -607,6 +400,6 @@
             geocoder = new GClientGeocoder();
         });
     </script>
-   {{--  <script type="text/javascript" src="{{ asset('js/calculateDistance.js') }}"></script> --}}
+    <script type="text/javascript" src="{{ asset('js/calculateDistance.js') }}"></script>
     <div id="messenger-widget"></div>
 @endsection
