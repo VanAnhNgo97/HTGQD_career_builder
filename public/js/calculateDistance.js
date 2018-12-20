@@ -12,7 +12,11 @@ $('#btnSearch').on('click',function(){
             age:$('#age').val()
         }
     }).done(function(data){
-        calculateDistances(location, data);
+        if (data==1) {
+            alert('Thông tin bạn vừa nhập không có công ty nào phù hợp. Vui lòng sửa lại yêu cầu.')
+        } else {
+            calculateDistances(location, data);
+        }
     });
 });
 

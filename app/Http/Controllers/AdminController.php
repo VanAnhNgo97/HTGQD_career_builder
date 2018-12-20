@@ -108,7 +108,9 @@ class AdminController extends Controller
                 $locations[$job->id]=$job->location; 
             }
         }
-        // echo count($locations);
+        else{
+            return 1;
+        }
         return $locations;
 
     }
@@ -124,6 +126,7 @@ class AdminController extends Controller
         $age=(int)$req->age;
         $soft_skill=(int)$req->soft_skill;
         $khoangcachs=array_filter(explode(",",$req->khoangcachs));
+        $data_input=['gender'=>$gender,'career_id'=>$career_id,'location'=>$location,'position_id'=>$position_id,'experience'=>$experience,'salary'=>$salary,'age'=>$age,'soft_skill'=>$soft_skill];
         // $khoangcachs=$req->khoangcachs;
         // var_dump($khoangcachs);
         // echo "Mã nghề: ".$career_id;
@@ -261,6 +264,6 @@ class AdminController extends Controller
         // echo "<pre>";
         // var_dump($jobs);
         // var_dump($job_score);
-        return view('client.pages.home',['jobs'=>$jobs, 'paginate'=>false]);  
+        return view('client.pages.home',['jobs'=>$jobs, 'paginate'=>false, 'data_input'=>$data_input]);  
     }
 }
