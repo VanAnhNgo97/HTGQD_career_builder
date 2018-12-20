@@ -15,7 +15,8 @@ class ClientController extends Controller
 
     public function getWorkInfo(Request $request)
     {
-    	/*$id = $request->id;*/
-    	return view('client.pages.work_info');
+    	$id = $request->id;
+        $job = Job::find($id);
+    	return view('client.pages.work_info', ['job' => $job]);
     }
 }

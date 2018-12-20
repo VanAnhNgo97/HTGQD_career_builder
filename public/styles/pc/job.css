@@ -1,0 +1,32 @@
+.fixed-header .company-name, .fixed-header .job-name {
+    display: block;
+}
+.job-data .create-alert {
+    padding-top: 5px;
+    font-size: 12px;
+}
+h4.TitleJobNew {
+    font-size: 16px;
+    color: #f79d25;
+    font-weight: 700;
+    padding-bottom: 2px;
+    margin-bottom: 10px;
+}
+.list-benefits {
+    padding-bottom: 10px;
+}
+ul {
+    list-style: none;
+}
+.list-benefits li, .manage-benefits .item label {
+    float: left;
+    width: 28%;
+    padding-right: 5%;
+    padding-bottom: 10px;
+    line-height: 18px;
+}
+.MarBot20 {
+    margin-bottom: 20px;
+    clear: both;
+}
+

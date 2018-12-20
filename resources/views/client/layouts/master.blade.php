@@ -7,8 +7,11 @@
 	<link rel="stylesheet" href="{{ asset('bower_components/select2/dist/css/select2.min.css?v522') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('bower_components/select2-bootstrap-theme/dist/select2-bootstrap.min.css?v522') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('styles/pc/main2.min.css?v522') }}" type="text/css">
+     <link rel="stylesheet" href="{{ asset('styles/pc/job.css') }}" type="text/css">
     <script src="{{ asset('js/config.dist.min.js?v522') }}"></script>
     <script src="{{ asset('js/require.min.js?v522') }}" data-main="main_multi"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 	@yield('head')
 </head>
 <body>
