@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>test api google map test 2</title>
+	<meta charset="utf-8">
+	<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbkOBi-458tGiaTCpyZmddDXrPv6klvBc">
+    </script>
+</head>
+<body>
+	<div id="output"></div>
+	<button onclick="getDistance()">Get Distance</button>
+
+	<script type="text/javascript">
+		function getDistance(){
+			var service = new google.maps.DistanceMatrixService;
+	        service.getDistanceMatrix({
+	            origins: ["Hà Đông"],
+	            destinations: ["Hoàng Mai"],
+	            travelMode: 'DRIVING',
+	            unitSystem: google.maps.UnitSystem.METRIC,
+	            avoidHighways: false,
+	            avoidTolls: false
+		        }, function(response, status) {
+		            if (status !== 'OK') {
+		                alert('Error was: ' + status);
+		            } else {
+			            var originList = response.originAddresses;
+			            var destinationList = response.destinationAddresses;
+			            // document.getElementById("output").innerHTML(response);
+			            console.log(response);
+		        	}
+		        }
+	       	);
+		}
+
+	</script>
+</body>
+</html>

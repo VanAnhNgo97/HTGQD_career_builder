@@ -1,70 +1,140 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
+<!DOCTYPE html>
+<html>
   <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <title>Google Maps JavaScript API</title>
-    <script src="http://maps.google.com/maps?file=api&v=2&key=ABQIAAAA7j_Q-rshuWkc8HyFI4V2HxQYPm-xtd00hTQOC0OXpAMO40FHAxT29dNBGfxqMPq5zwdeiDSHEPL89A" type="text/javascript"></script>
-    <script language="javascript">
-	var geocoder, location1, location2;
-	
-	function initialize() {
-    	geocoder = new GClientGeocoder();
-    }
+    <title>Distance Matrix Service</title>
+    <meta charset="utf-8">
+    <style>
+      #right-panel {
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+      }
 
-    function showLocation() {
-        geocoder.getLocations(document.forms[0].address1.value, function (response) {
-            if (!response || response.Status.code != 200)
-            {
-                alert("Sorry, we were unable to geocode the first address");
-            }
-            else
-            {
-                location1 = {lat: response.Placemark[0].Point.coordinates[1], lon: response.Placemark[0].Point.coordinates[0], address: response.Placemark[0].address};
-                geocoder.getLocations(document.forms[0].address2.value, function (response) {
-                    if (!response || response.Status.code != 200)
-                    {
-                        alert("Sorry, we were unable to geocode the second address");
-                    }
-                    else
-                    {
-                        location2 = {lat: response.Placemark[0].Point.coordinates[1], lon: response.Placemark[0].Point.coordinates[0], address: response.Placemark[0].address};
-                        calculateDistance();
-                    }
-                });
-            }
-        });
-    }
-    
-    function calculateDistance()
-    {
-        try
-        {
-            var glatlng1 = new GLatLng(location1.lat, location1.lon);
-            var glatlng2 = new GLatLng(location2.lat, location2.lon);
-            var miledistance = glatlng1.distanceFrom(glatlng2, 3959).toFixed(1);
-            var kmdistance = (miledistance * 1.609344).toFixed(1);
+      #right-panel select, #right-panel input {
+        font-size: 15px;
+      }
 
-            document.getElementById('results').innerHTML = '<strong>Địa chỉ 1: </strong>' + location1.address + '<br /><strong>Địa chỉ 2: </strong>' + location2.address + '<br /><strong>Khoảng cánh: </strong>' + miledistance + ' miles (or ' + kmdistance + ' km)';
-        }
-        catch (error)
-        {
-            alert(error);
-        }
-    }
+      #right-panel select {
+        width: 100%;
+      }
 
-    </script>
+      #right-panel i {
+        font-size: 12px;
+      }
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+        width: 50%;
+      }
+      #right-panel {
+        float: right;
+        width: 48%;
+        padding-left: 2%;
+      }
+      #output {
+        font-size: 11px;
+      }
+    </style>
   </head>
+  <body>
+    <div id="right-panel">
+      <div id="inputs">
+        <pre>
+var origin1 = {lat: 55.930, lng: -3.118};
+var origin2 = 'Greenwich, England';
+var destinationA = 'Stockholm, Sweden';
+var destinationB = {lat: 50.087, lng: 14.421};
+        </pre>
+      </div>
+      <div>
+        <strong>Results</strong>
+      </div>
+      <div id="output"></div>
+    </div>
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        var bounds = new google.maps.LatLngBounds;
+        var markersArray = [];
 
-  <body onload="initialize()">
+        var origin1 = {lat: 55.93, lng: -3.118};
+        var origin2 = 'Greenwich, England';
+        var destinationA = 'Stockholm, Sweden';
+        var destinationB = {lat: 50.087, lng: 14.421};
 
-    <form action="#" onsubmit="showLocation(); return false;">
-      <p>
-        <input type="text" name="address1" value="Address 1" class="address_input" size="40" />
-        <input type="text" name="address2" value="Address 2" class="address_input" size="40" />
-        <input type="submit" name="find" value="Search" />
-      </p>
-    </form>
-    <p id="results"></p>
+        var destinationIcon = 'https://chart.googleapis.com/chart?' +
+            'chst=d_map_pin_letter&chld=D|FF0000|000000';
+        var originIcon = 'https://chart.googleapis.com/chart?' +
+            'chst=d_map_pin_letter&chld=O|FFFF00|000000';
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 55.53, lng: 9.4},
+          zoom: 10
+        });
+        var geocoder = new google.maps.Geocoder;
+
+        var service = new google.maps.DistanceMatrixService;
+        service.getDistanceMatrix({
+          origins: [origin1, origin2],
+          destinations: [destinationA, destinationB],
+          travelMode: 'DRIVING',
+          unitSystem: google.maps.UnitSystem.METRIC,
+          avoidHighways: false,
+          avoidTolls: false
+        }, function(response, status) {
+          if (status !== 'OK') {
+            alert('Error was: ' + status);
+          } else {
+            var originList = response.originAddresses;
+            var destinationList = response.destinationAddresses;
+            var outputDiv = document.getElementById('output');
+            outputDiv.innerHTML = '';
+            deleteMarkers(markersArray);
+
+            var showGeocodedAddressOnMap = function(asDestination) {
+              var icon = asDestination ? destinationIcon : originIcon;
+              return function(results, status) {
+                if (status === 'OK') {
+                  map.fitBounds(bounds.extend(results[0].geometry.location));
+                  markersArray.push(new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location,
+                    icon: icon
+                  }));
+                } else {
+                  alert('Geocode was not successful due to: ' + status);
+                }
+              };
+            };
+
+            for (var i = 0; i < originList.length; i++) {
+              var results = response.rows[i].elements;
+              geocoder.geocode({'address': originList[i]},
+                  showGeocodedAddressOnMap(false));
+              for (var j = 0; j < results.length; j++) {
+                geocoder.geocode({'address': destinationList[j]},
+                    showGeocodedAddressOnMap(true));
+                outputDiv.innerHTML += originList[i] + ' to ' + destinationList[j] +
+                    ': ' + results[j].distance.text + ' in ' +
+                    results[j].duration.text + '<br>';
+              }
+            }
+          }
+        });
+      }
+
+      function deleteMarkers(markersArray) {
+        for (var i = 0; i < markersArray.length; i++) {
+          markersArray[i].setMap(null);
+        }
+        markersArray = [];
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbkOBi-458tGiaTCpyZmddDXrPv6klvBc&callback=initMap">
+    </script>
   </body>
 </html>

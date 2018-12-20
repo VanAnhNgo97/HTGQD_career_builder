@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Pagination\Factory;
 use App\Job;
+use App\Weight;
 use DB;
 
 class AdminController extends Controller
@@ -50,7 +52,7 @@ class AdminController extends Controller
         $location = $req->location;
         $job=new Job;
         $job->add($name,$gender,$minage,$minage,$career_id,$position_id,$salary,$experience,$soft_skill,$location,$description,$requirement,$benefits);
-        return redirect('adminthem-cong-viec');
+        return redirect('admin/them-cong-viec');
     }
 
     public function postEditWork(Request $req)
@@ -75,14 +77,14 @@ class AdminController extends Controller
 
 
         $job->edit($name,$gender,$minage,$minage,$career_id,$position_id,$salary,$experience,$soft_skill,$location,$description,$requirement,$benefits);
-        return redirect('admintrang-chu');
+        return redirect('admin/trang-chu');
     }
 
     public function getDeleteJob($id)
     {
         $job=Job::find($id);
         $job->delete();
-        return redirect('admintrang-chu');
+        return redirect('admin/trang-chu');
     }
 
     public function postListLocation(Request $req)
@@ -97,20 +99,16 @@ class AdminController extends Controller
             ->where('experience','<=',$experience)
             ->get();
         } else {
-            $jobs=Job::where('gender',0)
-            ->orWhere('gender',$gender)
-            ->where('min_age','<=',$age)
-            ->where('max_age','>=',$age)
-            ->where('experience','<=',$experience)
+            $jobs=Job::whereRaw('min_age<='.$age.' and max_age>='.$age.' and experience<='.$experience.' and (gender=0 or gender='.$gender.')')
             ->get();
         }
-
         $locations=array();
         if(count($jobs)>0){
             foreach ($jobs as $job) {
                 $locations[$job->id]=$job->location; 
             }
         }
+        // echo count($locations);
         return $locations;
 
     }
@@ -125,12 +123,14 @@ class AdminController extends Controller
         $salary=(int)$req->salary;
         $age=(int)$req->age;
         $soft_skill=(int)$req->soft_skill;
-        echo "Mã nghề: ".$career_id;
-        echo "Địa Điểm: ".$location;
-        echo "Mã cấp bậc:".$position_id;
-        echo "Kinh nghiệm:".$experience;
-        echo "Lương:".$salary;
-        echo "Tuổi:".$age;
+        $khoangcachs=array_filter(explode(",",$req->khoangcachs));
+        // var_dump($khoangcachs);
+        // echo "Mã nghề: ".$career_id;
+        // echo "Địa Điểm: ".$location;
+        // echo "Mã cấp bậc:".$position_id;
+        // echo "Kinh nghiệm:".$experience;
+        // echo "Lương:".$salary;
+        // echo "Tuổi:".$age;
         $jobs=null;
         if ($gender==0) {
             $jobs=Job::where('gender',0)
@@ -139,27 +139,27 @@ class AdminController extends Controller
             ->where('experience','<=',$experience)
             ->get();
         } else {
-            $jobs=Job::where('gender',0)
-            ->orWhere('gender',$gender)
-            ->where('min_age','<=',$age)
-            ->where('max_age','>=',$age)
-            ->where('experience','<=',$experience)
+            $jobs=Job::whereRaw('min_age<='.$age.' and max_age>='.$age.' and experience<='.$experience.' and (gender=0 or gender='.$gender.')')
             ->get();
         }
-        
+        $weights=Weight::select('weight')->get()->toArray();
         //Đây là chỗ Topsis
-        $mang_trong_so = [1,1,1,1,1,1,1];
+        $mang_trong_so = [];
+        foreach ($weights as $value) {
+            $mang_trong_so[]=$value['weight'];
+        }
         $careers = array();
-        $careers[0] = [1,1,1,1,1,1,1,1,1,1];
-        $careers[1] = [1,1,1,1,1,1,1,1,1,1];
-        $careers[2] = [1,1,1,1,1,1,1,1,1,1];
-        $careers[3] = [1,1,1,1,1,1,1,1,1,1];
-        $careers[4] = [1,1,1,1,1,1,1,1,1,1];
-        $careers[5] = [1,1,1,1,1,1,1,1,1,1];
-        $careers[6] = [1,1,1,1,1,1,1,1,1,1];
-        $careers[7] = [1,1,1,1,1,1,1,1,1,1];
-        $careers[8] = [1,1,1,1,1,1,1,1,1,1];
-        $careers[9] = [1,1,1,1,1,1,1,1,1,1];
+        $careers[0] = [1  ,0.1,0.7,0.4,0.5,0.1,0.2,0.4,0.2,0.2];
+        $careers[1] = [0.1, 1 ,0.2,0.5,0.6,0.6,0.7,0.5,0.3,0.2];
+        $careers[2] = [0.7,0.4, 1 ,0.3,0.2,0.1,0.2,0.1,0.1,0.2];
+        $careers[3] = [0.4,0.5,0.6, 1 ,0.6,0.4,0.5,0.4,0.2,0.3];
+        $careers[4] = [0.5,0.6,0.2,0.6, 1 ,0.3,0.7,0.8,0.3,0.2];
+        $careers[5] = [0.1,0.6,0.1,0.4,0.3, 1 ,0.1,0.1,0.6,0.3];
+        $careers[6] = [0.2,0.7,0.2,0.5,0.7,0.1, 1 ,0.4,0.1,0.1];
+        $careers[7] = [0.4,0.5,0.1,0.4,0.8,0.1,0.4, 1 ,0.1,0.1];
+        $careers[8] = [0.2,0.3,0.1,0.2,0.3,0.6,0.1,0.1, 1 ,0.2];
+        $careers[9] = [0.2,0.2,0.2,0.3,0.2,0.3,0.1,0.1,0.2, 1 ];
+
         $ages = array();
         $career_sim = array();
         $salarys = array();
@@ -169,7 +169,7 @@ class AdminController extends Controller
         $soft_skills = array();
         foreach ($jobs as $job) {
             $ages[] = ($job->minage - $age);
-            $career_sim[] = $careers[$career_id][$job->career_id];
+            $career_sim[] = $careers[$career_id][$job->career_id-1];
             $salarys[]= ($job->salary*1000000 - $salary);
             $distances[] = 1;
             $experiences[]=($experience - $job->experience);
@@ -257,12 +257,8 @@ class AdminController extends Controller
             $job_score[$job->id] = $score[$i];
             $i++;
         }
-        echo "<pre>";
-        var_dump($jobs);
-        echo "</pre>";
-        echo "========";
-        echo "</br>";
-        var_dump($job_score);
-
+        // echo "<pre>";
+        // var_dump($jobs);
+        return view('client.pages.copy',['jobs'=>$jobs]);  
     }
 }

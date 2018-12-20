@@ -7,6 +7,7 @@
 @section('head')
 	<link rel="stylesheet" type="text/css" href="{{ asset('styles/fontawesome/styles.min.css') }}">
     <script src="{{ asset('admin/scripts/jquery.min.js') }}"></script>
+    {{-- <script src="http://maps.google.com/maps?file=api&v=2&key=AIzaSyDbkOBi-458tGiaTCpyZmddDXrPv6klvBc" type="text/javascript"></script> --}}
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbkOBi-458tGiaTCpyZmddDXrPv6klvBc">
     </script>
@@ -41,31 +42,19 @@
                             <div class="list-group-item bold-red">
                                 <h2 class="list-group-item-heading">
                                     <i class="saved-job-star fa fa-star-o" data-title="Lưu việc làm này" data-job-id="1389075"></i>
-                                    <a target="_blank" href="{{ route('getWorkInfo',['id' => $job->id]) }}">{{$job->name}}
-                                        @if($job->gender == 1)
-                                            (Yêu cầu Nam giới)
-                                        @elseif($job->gender == 2)
-                                            (Yêu cầu Nữ giới)
-                                        @else
-                                            (Yêu cầu cả Nam và Nữ)
-                                        @endif
+                                    <a target="_blank" href="{{ route('getWorkInfo') }}">Kế Toán Tổng Hợp (Yêu cầu Nam giới)
                                     </a>
                                 </h2>
                                 <div class="list-group-item-text clearfix">
                                     <p class="priority-data">
-                                        <a class="text-accent" href="javascript:void(0)">{{$job->location}}</a> 
-                                        <!-- -
-                                        <a href="javascript:void(0)" title="View Jobs at Location: Hà Nội">Hà Nội</a>, <a href="" title="View Jobs at Location: Hưng Yên">Hưng Yên</a> -->
+                                        <a class="text-accent" href="">Công Ty TNHH Minh Long</a> -
+                                        <a href="" title="View Jobs at Location: Hà Nội">Hà Nội</a>, <a href="" title="View Jobs at Location: Hưng Yên">Hưng Yên</a>
                                     </p>
                                     <div class="pull-left">
-                                        <small>{{$job->salary . ",000,000"}}             
+                                        <small>9,000,000VNĐ - 712,000,000VNĐ|Nhân viên                                                
                                         </small>
                                     </div>
-                                    <p class="date pull-right">
-                                        <small>
-                                            {{$job->created_at->format('d-m-Y')}}
-                                        </small>
-                                    </p>
+                                    <p class="date pull-right"><small>01/12/2018</small></p>
                                 </div>
                             </div>
                             @endforeach                            
@@ -74,7 +63,19 @@
 
                     <div class="text-center search-result-paginator" id="pagination">
                         <nav>
-                            {{ $jobs->links() }}
+                            {{-- <ul class="pagination">
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="">2</a></li>
+                                <li><a href="">3</a></li>
+                                <li><a href="">4</a></li>
+                                <li><a href="">5</a></li>
+                                <li><a href="">6</a></li>
+                                <li><a href="">7</a></li>
+                                <li class="omit"><span>...</span></li>
+                                <li><a href="">28</a></li>
+                                <li><a href=""><span aria-hidden="true">&raquo;</span><span class="sr-only">Tiếp tục</span></a></li>
+                            </ul> --}}
+                            
                         </nav>
                     </div>
                 </div>
@@ -89,7 +90,7 @@
                                     <div class="form-group">
                                         <label class="control-label">Ngành nghề</label>
                                         <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
-                                        <select id="advancedJobSearch_categories" name="career_id" class="input-sm form-control" size="1">
+                                        <select id="advancedJobSearch_categories" name="career_id" class="input-sm form-control" size="1" >
                                             <option value="">Chọn ngành nghề</option>
                                             <option value="1">CNTT Phần Mềm</option>
                                             <option value="2">Bán Hàng Kinh Doanh</option>
@@ -146,8 +147,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <input type="hidden" name="khoangcachs" id="khoangcachs">
-                                        <input type="button" id="btnSearch" class="btn btn-primary" value="Tìm kiếm"  url='{{ route('postListLocation') }}' getLocations='{{ route('postListLocation') }}'/>
+                                        <input type="submit" id="btnSearch" class="btn btn-primary" value="Tìm kiếm"  url='{{ route('postListLocation') }}' getLocations='{{ route('postListLocation') }}'/>
                                     </div>
 
                                     <input type="hidden" name="view" value="headline" />
@@ -400,15 +400,14 @@
             });
         });
     </script>
-
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
         $(document).ready(function(){
-            $("#pagination ul li.active").find("span").css("padding","10px 15px");
             geocoder = new GClientGeocoder();
         });
-    </script>
-    <!-- <script type="text/javascript" src="{{ asset('js/pagination.js') }}"></script> -->
-
-    <script type="text/javascript" src="{{ asset('js/calculateDistance.js') }}"></script>
+    </script> --}}
+    {{-- <script type="text/javascript" src="{{ asset('js/calculateDistance.js') }}"></script> --}}
     <div id="messenger-widget"></div>
+
+
+    
 @endsection
