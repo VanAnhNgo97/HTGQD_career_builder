@@ -75,7 +75,7 @@
                                 <li><a href="">28</a></li>
                                 <li><a href=""><span aria-hidden="true">&raquo;</span><span class="sr-only">Tiếp tục</span></a></li>
                             </ul> --}}
-                            {{ $jobs->links() }}
+                            
                         </nav>
                     </div>
                 </div>
@@ -90,9 +90,9 @@
                                     <div class="form-group">
                                         <label class="control-label">Ngành nghề</label>
                                         <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
-                                        <select id="advancedJobSearch_categories" name="career_id" class="input-sm form-control" size="1">
+                                        <select id="advancedJobSearch_categories" name="career_id" class="input-sm form-control" size="1" >
                                             <option value="">Chọn ngành nghề</option>
-                                            <option value="1" selected>CNTT Phần Mềm</option>
+                                            <option value="1">CNTT Phần Mềm</option>
                                             <option value="2">Bán Hàng Kinh Doanh</option>
                                             <option value="3">Cơ Khí Ô Tô Tự Động Hóa</option>
                                             <option value="4">Quảng Cáo Đối Ngoại Truyền Thông</option>
@@ -106,17 +106,17 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label">Tuổi</label>
-                                        <input type="number" id="age" name="age" class="input-sm form-control" placeholder="Tuổi Của Bạn..." value="33" />
+                                        <input type="number" id="age" name="age" class="input-sm form-control" placeholder="Tuổi Của Bạn..." />
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label">Địa điểm</label>
-                                        <input type="text" id="location" name="location" class="input-sm form-control" placeholder="Địa Điểm Của Bạn..." value="ha noi" />
+                                        <input type="text" id="location" name="location" class="input-sm form-control" placeholder="Địa Điểm Của Bạn..." />
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label">Giới Tính</label>
                                         <select id="gender" name="gender" class="input-sm form-control" size="1">
                                             <option value="">Chọn giới tính</option>
-                                            <option value="1" selected>Nam</option>
+                                            <option value="1">Nam</option>
                                             <option value="2">Nữ</option>
                                             <option value="0">Cả 2</option>
                                         </select>
@@ -128,7 +128,7 @@
                                             <option value="1">Sinh viên thực tập</option>
                                             <option value="2">Mới tốt nghiệp</option>
                                             <option value="3">Nhân viên</option>
-                                            <option value="4" selected>Trưởng nhóm giám sát</option>
+                                            <option value="4">Trưởng nhóm giám sát</option>
                                             <option value="5">Quản lý</option>
                                             <option value="6">Quản lý cấp cao</option>
                                             <option value="7">Điều hành cấp cao</option>
@@ -136,18 +136,18 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label">Kinh nghiệm</label>
-                                        <input type="number" id="experience" name="experience" class="input-sm form-control" placeholder="Kinh Nghiệm Của Bạn...(năm)" min="1" value="6" />
+                                        <input type="number" id="experience" name="experience" class="input-sm form-control" placeholder="Kinh Nghiệm Của Bạn...(năm)" min="1" />
                                     </div>
 
                                     <div class="form-group">
                                         <label for="advancedJobSearch_salaryType" class="control-label">Mức lương</label>
 
                                         <div class="form-inline">
-                                            <input type="number" id="advancedJobSearch_keywords" name="salary" class="input-sm form-control" placeholder="Lương...(triệu)" min="1" value="10" />
+                                            <input type="number" id="advancedJobSearch_keywords" name="salary" class="input-sm form-control" placeholder="Lương...(triệu)" min="1" />
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <input type="button" id="btnSearch" class="btn btn-primary" value="Tìm kiếm"  url='{{ route('postListLocation') }}' getLocations='{{ route('postListLocation') }}'/>
+                                        <input type="submit" id="btnSearch" class="btn btn-primary" value="Tìm kiếm"  url='{{ route('postListLocation') }}' getLocations='{{ route('postListLocation') }}'/>
                                     </div>
 
                                     <input type="hidden" name="view" value="headline" />
@@ -405,7 +405,7 @@
             geocoder = new GClientGeocoder();
         });
     </script> --}}
-    <script type="text/javascript" src="{{ asset('js/calculateDistance.js') }}"></script>
+    {{-- <script type="text/javascript" src="{{ asset('js/calculateDistance.js') }}"></script> --}}
     <div id="messenger-widget"></div>
 
 

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Pagination\Factory;
 use App\Job;
+use App\Weight;
 use DB;
 
 class AdminController extends Controller
@@ -125,12 +127,12 @@ class AdminController extends Controller
         $salary=(int)$req->salary;
         $age=(int)$req->age;
         $soft_skill=(int)$req->soft_skill;
-        echo "Mã nghề: ".$career_id;
-        echo "Địa Điểm: ".$location;
-        echo "Mã cấp bậc:".$position_id;
-        echo "Kinh nghiệm:".$experience;
-        echo "Lương:".$salary;
-        echo "Tuổi:".$age;
+        // echo "Mã nghề: ".$career_id;
+        // echo "Địa Điểm: ".$location;
+        // echo "Mã cấp bậc:".$position_id;
+        // echo "Kinh nghiệm:".$experience;
+        // echo "Lương:".$salary;
+        // echo "Tuổi:".$age;
         $jobs=null;
         if ($gender==0) {
             $jobs=Job::where('gender',0)
@@ -146,9 +148,12 @@ class AdminController extends Controller
             ->where('experience','<=',$experience)
             ->get();
         }
-        
+        $weights=Weight::select('weight')->get()->toArray();
         //Đây là chỗ Topsis
-        $mang_trong_so = [1,1,1,1,1,1,1];
+        $mang_trong_so = [];
+        foreach ($weights as $value) {
+            $mang_trong_so[]=$value['weight'];
+        }
         $careers = array();
         $careers[0] = [1  ,0.1,0.7,0.4,0.5,0.1,0.2,0.4,0.2,0.2];
         $careers[1] = [0.1, 1 ,0.2,0.5,0.6,0.6,0.7,0.5,0.3,0.2];
@@ -170,7 +175,7 @@ class AdminController extends Controller
         $soft_skills = array();
         foreach ($jobs as $job) {
             $ages[] = ($job->minage - $age);
-            $career_sim[] = $careers[$career_id][$job->career_id];
+            $career_sim[] = $careers[$career_id][$job->career_id-1];
             $salarys[]= ($job->salary*1000000 - $salary);
             $distances[] = 1;
             $experiences[]=($experience - $job->experience);
@@ -258,12 +263,13 @@ class AdminController extends Controller
             $job_score[$job->id] = $score[$i];
             $i++;
         }
-        echo "<pre>";
-        var_dump($jobs);
-        echo "</pre>";
-        echo "========";
-        echo "</br>";
-        var_dump($job_score);
-
+        // echo "<pre>";
+        // var_dump($jobs[0]);
+        
+        // echo "</pre>";
+        // echo "========";
+        // echo "</br>";
+        // var_dump($job_score);
+        return view('client.pages.copy',['jobs'=>$jobs]);  
     }
 }
