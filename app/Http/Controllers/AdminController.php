@@ -144,6 +144,12 @@ class AdminController extends Controller
             $jobs=Job::whereRaw('min_age<='.$age.' and max_age>='.$age.' and experience<='.$experience.' and (gender=0 or gender='.$gender.')')
             ->get();
         }
+
+        // check empty jobs for max operation
+        if(count($jobs) == 0){
+            return view('client.pages.home',['jobs'=>$jobs, 'paginate'=>false]);
+        }
+        
         $weights=Weight::select('weight')->get()->toArray();
         //Đây là chỗ Topsis
         $mang_trong_so = [];
@@ -173,9 +179,9 @@ class AdminController extends Controller
             $ages[] = ($job->minage - $age);
             $career_sim[] = $careers[$career_id][$job->career_id-1];
             $salarys[]= ($job->salary*1000000 - $salary);
-            $distances[] = 1 / ($khoangcachs[$job->id]);
+            $distances[] = 1 / ($khoangcachs[$job->id]+0.1);
             $experiences[]=($experience - $job->experience);
-            $positions[]=($job->position_id-$position_id);
+            $positions[]=($job->position_id-$position_id) +0.1;
             $soft_skills[]=($soft_skill - $job->soft_skill);
         }
         $ages_norm = 0;
