@@ -1,7 +1,7 @@
 @extends('client.layouts.master')
 
 @section('title')
-	Kế Toán Tổng Hợp (Yêu cầu Nam giới) - Công Ty TNHH Minh Long, Hà Nội, CNTT - Phần mềm | Việc Làm, Tìm Việc, Tuyển Dụng, Tìm Việc Làm - CareerLink.vn
+	{{$job->name}} - {{$job->location}}
 @endsection
 
 @section('content')
@@ -10,50 +10,55 @@
     	<div class="container body-container" itemscope itemtype="http://schema.org/JobPosting">
         	<div class="page-header job-header">   
             	<h1>
-                	<span itemprop="title">Kế Toán Tổng Hợp (Yêu cầu Nam giới)</span>
+                	<span itemprop="title">{{$job->name}}</span>
 					<i class="fa fa-star-o saved-job-star" data-title="Lưu việc làm này" data-job-id="1389075" data-placement="top"></i>
             	</h1>
         	</div>
 	        <div class="row">
-	            <div class="col-sm-7">
+	            <div class="col-sm-9">
 	                <div class="job-data">
 	                    <ul class="list-unstyled critical-job-data">
 	                        <li>
-	                            <a class="text-accent" href='/viec-lam-cua/cong-ty-tnhh-minh-long/188117'>
+	                            <a class="text-accent" href='javascript:void(0)'>
 	                                <span itemprop="hiringOrganization" itemscope itemtype="http://schema.org/Organization">
-	    								<span itemprop="name">Công Ty TNHH Minh Long</span>
+	    								<span itemprop="name">{{$job->location}}</span>
 									</span>
 	                            </a>
 	                        </li>
 	                        <li>
 	                            <span itemprop="jobLocation" itemscope itemtype="http://schema.org/Place">	<span itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-	                            	<span itemprop="streetAddress">Thôn Như Lân, Xã Long Hưng</span>
+	                      {{--      	<span itemprop="streetAddress">Thôn Như Lân, Xã Long Hưng</span>
 	                            	<span itemprop="addressLocality">, Huyện Văn Giang</span>,
 	                    			<span itemprop="addressRegion">Hưng Yên</span>,
-	                    			<span itemprop="addressCountry">Việt Nam</span></span></span>
+	                    			<span itemprop="addressCountry">Việt Nam</span></span></span> --}}
 	                        </li>
 	                        <li>
 	                            Lương:
 	                            <span itemprop="baseSalary" itemscope itemtype="http://schema.org/MonetaryAmount">
-	                                <span itemprop="minValue" content="9000000">9,000,000</span>
+	                                <span itemprop="minValue" content="{{$job->salary}}">{{$job->salary . ",000,000"}}</span>
 	                                <span itemprop="currency">VNĐ</span>
-	                                <span itemprop="maxValue" content="712000000">712,000,000</span>
-	                                <span itemprop="currency">VNĐ</span>
-	                                <span itemprop="unitText" class="hidden">MONTH</span>
+	                                <span itemprop="unitText" class="hidden">Tháng</span>
 	                            </span>  
 	                        </li>
 	                    </ul>
 	                    <div class="clearfix fixed-header">
-	                        <div class="pull-right">
-	                            <a class="btn btn-primary btn-lg" href="" role="button">Nộp đơn</a>
-	                            </div>
+	                       <div class="pull-right">
+	                           <a class="btn btn-primary btn-lg" href="" role="button">Nộp đơn</a>
+                          </div>
 	                        <div class="job-name">
-	                            <span itemprop="title">Kế Toán Tổng Hợp (Yêu cầu Nam giới)</span>
-								<i class="fa fa-star-o saved-job-star" data-title="Lưu việc làm này" data-job-id="1389075" data-placement="bottom"></i>
+	                            <span itemprop="title">{{$job->name}}</span>
+	                            <p>
+	                            		@if($job->gender == 1)
+                                            (Yêu cầu Nam giới)
+                                        @elseif($job->gender == 2)
+                                            (Yêu cầu Nữ giới)
+                                        @else
+                                            (Yêu cầu cả Nam và Nữ)
+                                        @endif</p>
 	                        </div>
 	                        <p class="company-name">
 	                        	<span itemprop="hiringOrganization" itemscope itemtype="http://schema.org/Organization">
-	    							<span itemprop="name">Công Ty TNHH Minh Long</span>
+	    							<span itemprop="name">{{$job->location}}</span>
 								</span>
 							</p>
 	                        <div class="create-alert">
@@ -64,92 +69,19 @@
 	                        </div>
 	                    </div>
 	                    <hr/>
-	                    <h2>Mô tả chi tiết công việc</h2>
+	                    <h2>Phúc lợi</h2>
+	                    <div>
+	                    	{!!$job->benefits!!}
+	                    </div>
+	                    <!-- <h2>Mô tả chi tiết công việc</h2> -->
 	                    <div itemprop="description">
-	                        <p style="text-align: justify;">- Kiểm tra c&aacute;c định khoản nghiệp vụ ph&aacute;t sinh.</p>
-							<p style="text-align: justify;">- Tập hợp chi ph&iacute; t&iacute;nh gi&aacute; th&agrave;nh sản phẩm nhập kho.</p>
-							<p style="text-align: justify;">- Kiểm tra sự c&acirc;n đối giữa số liệu kế to&aacute;n chi tiết v&agrave; tổng hợp.</p>
-							<p style="text-align: justify;">- Kiểm tra số dư cuối kỳ c&oacute; hợp l&yacute; v&agrave; khớp đ&uacute;ng với c&aacute;c b&aacute;o c&aacute;o chi tiết.</p>
-							<p style="text-align: justify;">- Hạch to&aacute;n thu nhập, chi ph&iacute;, khấu hao, TSCĐ, c&ocirc;ng nợ, nghiệp vụ kh&aacute;c, thuế GTGT v&agrave; b&aacute;o c&aacute;o thuế c&ocirc;ng ty.</p>
-							<p style="text-align: justify;">- Theo d&otilde;i, quản l&yacute; tổng qu&aacute;t c&ocirc;ng nợ to&agrave;n c&ocirc;ng ty. X&aacute;c định v&agrave; đề xuất lập dự ph&ograve;ng hoặc xử l&yacute; c&ocirc;ng nợ phải thu kh&oacute; đ&ograve;i to&agrave;n c&ocirc;ng ty.</p>
-							<p style="text-align: justify;">- In sổ chi tiết v&agrave; tổng hợp theo quy định.</p>
-							<p style="text-align: justify;">- Lập b&aacute;o c&aacute;o t&agrave;i ch&iacute;nh theo từng th&aacute;ng, qu&yacute;, 6 th&aacute;ng, năm v&agrave; c&aacute;c b&aacute;o c&aacute;o giải tr&igrave;nh chi tiết.</p>
-							<p style="text-align: justify;">- Hướng dẫn kế to&aacute;n vi&ecirc;n xử l&yacute; v&agrave; hạch to&aacute;n c&aacute;c nghiệp vụ kế to&aacute;n.</p>
-							<p style="text-align: justify;">- Tham gia phối hợp c&ocirc;ng t&aacute;c kiểm tra, kiểm k&ecirc;.</p>
-							<p style="text-align: justify;">- Cải tiến phương ph&aacute;p hạch to&aacute;n v&agrave; chế độ b&aacute;o c&aacute;o.</p>
-							<p style="text-align: justify;">- Thống k&ecirc; v&agrave; tổng hợp số liệu kế to&aacute;n khi c&oacute; y&ecirc;u cầu.</p>
-							<p style="text-align: justify;">- Cung cấp số liệu cho ban gi&aacute;m đốc hoặc c&aacute;c đơn vị chức năng khi c&oacute; y&ecirc;u cầu.</p>
-							<p style="text-align: justify;">- Giải tr&igrave;nh số liệu v&agrave; cung cấp hồ sơ, số liệu cho cơ quan thuế, kiểm to&aacute;n, thanh tra kiểm tra theo y&ecirc;u cầu.</p>
-							<p style="text-align: justify;">- Kiến nghị v&agrave; đề xuất biện ph&aacute;p khắc phục cải tiến.</p>
-							<p style="text-align: justify;">- Lưu trữ dữ liệu kế to&aacute;n theo quy định.</p>
-							<p style="text-align: justify;">- Thực hi&ecirc;̣n các c&ocirc;ng vi&ecirc;̣c kh&aacute;c theo y&ecirc;u c&acirc;̀u của cấp tr&ecirc;n.</p>
-							<p style="text-align: justify;"><strong>* Quyền lợi:</strong></p>
-							<p style="text-align: justify;">- Thu nhập:</p>
-							<p style="text-align: justify;">+ Mức lương: 9 &ndash; 12 triệu</p>
-							<p style="text-align: justify;">+ Được hưởng phụ cấp ăn trưa, hỗ trợ nh&agrave; trọ (nếu ở xa), phụ cấp chuy&ecirc;n cần, phụ cấp th&acirc;m ni&ecirc;n.</p>
-							<p style="text-align: justify;">- Chế độ v&agrave; ph&uacute;c lợi:</p>
-							<p style="text-align: justify;">+ Được hưởng đầy đủ c&aacute;c chế độ BHXH; BHYT; BHTN v&agrave; c&aacute;c chế độ kh&aacute;c theo quy định của Nh&agrave; nước.</p>
-							<p style="text-align: justify;">+ Ph&uacute;c lợi c&ocirc;ng ty: Thưởng c&aacute;c ng&agrave;y lễ tết, được tham gia c&aacute;c kho&aacute; đ&agrave;o tạo về chuy&ecirc;n m&ocirc;n, kỹ năng l&agrave;m việc tại c&aacute;c tổ chức trong nước hoặc nước ngo&agrave;i;</p>
-							<p style="text-align: justify;">+ L&agrave;m việc trong kh&ocirc;ng gian v&agrave; m&ocirc;i trường s&aacute;ng tạo, chuy&ecirc;n nghiệp, c&oacute; nhiều cơ hội thăng tiến sự nghiệp.</p>
+	                    	{!!$job->description!!}
 	                    </div>
-	                    <h2>Kinh nghiệm/Kỹ năng chi tiết</h2>
+	                    <h2>Yêu cầu công việc</h2>
 	                    <div itemprop="skills">
-	                        <p style="text-align: justify;"><strong>* Kiến thức:</strong></p>
-							<p style="text-align: justify;">- Tốt nghiệp Đại học ch&iacute;nh quy chuy&ecirc;n ng&agrave;nh T&agrave;i ch&iacute;nh &ndash; Kế to&aacute;n</p>
-							<p style="text-align: justify;">- Nắm vững chế độ kế to&aacute;n.</p>
-							<p style="text-align: justify;"><strong>* Kỹ năng:</strong></p>
-							<p style="text-align: justify;">- Tổ chức, sắp xếp v&agrave; x&acirc;y dựng kế hoạch để thực hiện nhiệm vụ được ph&acirc;n c&ocirc;ng.</p>
-							<p style="text-align: justify;">- Sử dụng th&agrave;nh thạo phần mềm kế to&aacute;n, vi t&iacute;nh văn ph&ograve;ng</p>
-							<p style="text-align: justify;"><strong>* Kinh nghiệm</strong>: Kế to&aacute;n tổng hợp: tối thiểu 3 năm, đặc biệt c&oacute; kinh nghiệm l&agrave;m trong ng&agrave;nh x&acirc;y lắp.</p>
-							<p style="text-align: justify;"><strong>* Th&aacute;i độ</strong>: C&oacute; tinh thần kỉ luật, tr&aacute;ch nhiệm, nhiệt t&igrave;nh, chăm chỉ, trung th&agrave;nh tuyệt đối.</p>
-							<p style="text-align: justify;"><strong>* H&agrave;nh vi:</strong> Tỉ mỉ ch&iacute;nh x&aacute;c, nhanh nhẹn.</p>
+	                        {!!$job->requirement!!}
 	                    </div>
-	                    <h2>Mô tả</h2>
-	                    <ul class="list-unstyled">
-	                        <li>Ngành nghề việc làm:
-	                            <ul>
-	                                <li>
-	                                    <a href="/viec-lam/cntt-phan-mem/19">
-	                                        <span itemprop="occupationalCategory">CNTT - Phần mềm</span>
-	                                    </a>
-	                                </li>
-	                                <li>
-	                                    <a href="/viec-lam/vien-thong/32">
-	                                        <span itemprop="occupationalCategory">Viễn Thông</span>
-	                                    </a>
-	                                </li>
-	                                <li>
-	                                    <a href="/viec-lam/cntt-phan-cung-mang/130">
-	                                        <span itemprop="occupationalCategory">CNTT - Phần cứng / Mạng</span>
-	                                    </a>
-	                                </li>
-	                            </ul>
-	                        </li>
-	                        <li itemprop="qualifications">Cấp bậc:Nhân viên</li>
-	                        <li>
-	                            Nơi làm việc:
-	                            <ul>
-	                                <a href="/tim-viec-lam-tai/ha-noi/HN" title="View Jobs at Location: Hà Nội" itemprop="addressRegion">Hà Nội
-	                                </a>,
-									<span itemprop="addressLocality">Quận Cầu Giấy</span>
-			                        <li>
-				                        <a href="/tim-viec-lam-tai/hung-yen/HY" title="View Jobs at Location: Hưng Yên" itemprop="addressRegion">Hưng Yên</a>,
-										<span itemprop="addressLocality">Huyện Văn Giang</span>
-				                    </li>
-	                    		</ul>
-	                		</li>
-			                <li>Trình độ học vấn:
-								<span itemprop="educationRequirements">Cử nhân</span>
-			                </li>
-			                <li>Mức kinh nghiệm:
-								<span itemprop="experienceRequirements">2-5 năm kinh nghiệm</span>
-			                </li>
-			            	<li>Loại công việc:
-								<span itemprop="employmentType">Toàn thời gian cố định</span>
-			                </li>
-			                <li>Tuổi:Trên 22</li>
-			                <li>Giới tính:Nam</li>
-	            		</ul>
+	                   
 			            <h2>Thông tin liên hệ</h2>
 			            <ul class="list-unstyled">
 			                <li>Cách liên hệ:Nộp trực tuyến, Gửi kèm File, Trực tiếp
@@ -159,10 +91,9 @@
 			                </li>
 			                <li>Tên liên hệ:Ms Trang</li>
 			                <li>Địa chỉ:
-			                    <span itemprop="jobLocation" itemscope itemtype="http://schema.org/Place"><span itemprop="address" itemscope itemtype="http://schema.org/PostalAddress"><span itemprop="streetAddress">Thôn Như Lân, Xã Long Hưng</span><span itemprop="addressLocality">, Huyện Văn Giang
-			                    </span>,
-					            <span itemprop="addressRegion">Hưng Yên</span>,
-					            <span itemprop="addressCountry">Việt Nam</span></span></span>
+			                    
+					            <span itemprop="addressRegion">{{$job->location}}</span>
+					            
 			                </li>
 						</ul>
 	            		<div>
@@ -178,72 +109,10 @@
 			                    <span class="hidden" itemprop="validThrough">2018-12-13T24:00+07:00</span>
 			                </dd>
 	            		</dl>
-			            <div class="location-container">
-			                <h2>
-			                    <i class="fa fa-map-marker"></i>
-			                    Nơi làm việc
-			                </h2>
-							<div class="location-map-container"></div>
-			                <ul class="fa-ul">
-			                    <li itemprop="jobLocation" itemscope itemtype="http://schema.org/Place">
-			                        <a href="https://www.google.com/maps/place/21.008094,105.8081387/@21.008094,105.8081387,16z/" target="_blank" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-			                            <i class="fa-li fa fa-building-o"></i>
-			                            <strong>VPDD</strong>:
-			                            <span itemprop="addressLocality">S3, T14, toà nhà 319 BQP, 63 Lê Văn Lương
-			                            </span>
-			                            <span itemprop="addressRegion">,Quận Cầu Giấy,Hà Nội</span>,
-			                            <span itemprop="addressCountry">Việt Nam</span><i class="fa fa-external-link"></i>
-			                        </a>
-			                    </li>
-			                    <li itemprop="jobLocation" itemscope itemtype="http://schema.org/Place">
-			                        <a href="https://www.google.com/maps/place/20.950159669924,105.95772177302/@20.950159669924,105.95772177302,16z/" target="_blank" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-			                            <i class="fa-li fa fa-building-o"></i>
-			                            <strong>Nhà Máy</strong>:
-			                            <span itemprop="addressLocality">Thôn Như Lân, Xã Long Hưng</span>
-			                            <span itemprop="addressRegion">,Huyện Văn Giang,Hưng Yên</span>,
-			                            <span itemprop="addressCountry">Việt Nam</span><i class="fa fa-external-link"></i>
-			                        </a>
-			                    </li>
-			                </ul>
-			            </div>        
-			            <h2>
-			                <i class="fa fa-tags"></i>
-			                Tags                        
-			            </h2>
-			            <p>
-			            	<a class="tag tag-lg" href="/viec-lam/ke-toan">Kế Toán</a>
-			                <a class="tag tag-lg" href="/viec-lam/quan-cau-giay">Quận Cầu Giấy</a>
-			                <a class="tag tag-lg" href="/viec-lam/ke-toan-tong-hop">Kế toán tổng hợp</a>
-			                <a class="tag tag-lg" href="/viec-lam/ha-noi">Hà Nội</a>
-			                <a class="tag tag-lg" href="/viec-lam/hung-yen">Hưng Yên</a>
-			            </p>
-	            		<ul class="list-inline text-center share-buttons ">
-			            	<li>
-			            		<a href="" target="_blank" class="facebook" onclick="ga('send', 'event', 'Fixed Share Buttons for PC', 'Click', 'Facebook', 1);">
-			               			<img src="{{ asset('images/common/btn/text-facebook.png?v522') }}" width="32" height="32" />
-			               		</a>
-			               	</li>
-			               	<li>
-			               		<a href="" target="_blank" class="google-plus" onclick="ga('send', 'event', 'Fixed Share Buttons for PC', 'Click', 'Google+', 1);"><img src="{{ asset('images/common/btn/btn_google+_signin_dark_normal_web@2x.png?v522') }}" width="32" height="32" />
-			               		</a>
-			               	</li>
-			               	<li>
-			               		<a href="" target="_blank" class="linkedin" onclick="ga('send', 'event', 'Fixed Share Buttons for PC', 'Click', 'LinkedIn', 1);">
-			               			<i class="fa fa-linkedin fa-2x"></i>
-			               		</a>
-			               	</li>
-			               	<li>
-			               		<a href="" target="_blank" class="twitter" onclick="ga('send', 'event', 'Fixed Share Buttons for PC', 'Click', 'Twitter', 1);"><i class="fa fa-twitter fa-2x"></i>
-			               		</a>
-			               	</li>
-			               	<li>
-			               		<a href="mailto:?subject=" class="envelope" onclick="ga('send', 'event', 'Fixed Share Buttons for PC', 'Click', 'Mail', 1);"><i class="fa fa-envelope fa-2x"></i>
-			               		</a>
-			               	</li>
-	               		</ul>                
+			                         
 	           		</div>
 	        	</div>
-		        <div class="col-sm-5">
+		    {{--    <div class="col-sm-5">
 		            <div class="job-side-data" itemprop="hiringOrganization">
 		                <p class="text-center" itemprop="logo">
 		                    <img src="" />
@@ -311,7 +180,7 @@
 		        			<a href="/viec-lam-cua/cong-ty-tnhh-minh-long/188117">Việc làm khác từ Công ty này &gt;&gt;</a>
 		    			</p>
 		            </div>
-				</div>
+				</div>--}}
 		    </div>
     	</div>
 	    

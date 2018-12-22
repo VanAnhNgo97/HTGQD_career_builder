@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Pagination\Factory;
 use App\Job;
+use App\Weight;
 use DB;
 
 class AdminController extends Controller
@@ -20,6 +22,25 @@ class AdminController extends Controller
     	return view('admin.pages.add_work');
     }
 
+    public function postEditWeight(Request $req)
+    {
+        $w_age=Weight::where('name','age')->update(['weight'=>$req->age]);
+
+        $w_career_sim=Weight::where('name','career_sim')->update(['weight'=>$req->career_sim]);
+
+        $w_salary=Weight::where('name','salary')->update(['weight'=>$req->salary]);
+
+        $w_distance=Weight::where('name','distance')->update(['weight'=>$req->distance]);
+
+        $w_experience=Weight::where('name','experience')->update(['weight'=>$req->experience]);
+
+        $w_soft_skill=Weight::where('name','soft_skill')->update(['weight'=>$req->soft_skill]);
+
+        $w_position=Weight::where('name','position')->update(['weight'=>$req->position]);
+
+        return redirect('admin/sua-trong-so');
+    }
+
     public function getEditWork($id)
     {
         $job=Job::find($id);
@@ -28,7 +49,12 @@ class AdminController extends Controller
 
     public function getEdit()
     {
-    	return view('admin.pages.edit_trong_so');
+        $weights=Weight::all();
+        $w=[];
+        foreach ($weights as $weight) {
+            $w[$weight->name]=$weight->weight;
+        }
+    	return view('admin.pages.edit_trong_so',['weights'=>$w]);
     }
 
     public function postAddWork(Request $req)
@@ -50,7 +76,7 @@ class AdminController extends Controller
         $location = $req->location;
         $job=new Job;
         $job->add($name,$gender,$minage,$minage,$career_id,$position_id,$salary,$experience,$soft_skill,$location,$description,$requirement,$benefits);
-        return redirect('adminthem-cong-viec');
+        return redirect('admin/them-cong-viec');
     }
 
     public function postEditWork(Request $req)
@@ -75,14 +101,14 @@ class AdminController extends Controller
 
 
         $job->edit($name,$gender,$minage,$minage,$career_id,$position_id,$salary,$experience,$soft_skill,$location,$description,$requirement,$benefits);
-        return redirect('admintrang-chu');
+        return redirect('admin/trang-chu');
     }
 
     public function getDeleteJob($id)
     {
         $job=Job::find($id);
         $job->delete();
-        return redirect('admintrang-chu');
+        return redirect('admin/trang-chu');
     }
 
     public function postListLocation(Request $req)
@@ -90,29 +116,30 @@ class AdminController extends Controller
         $gender=$req->gender;
         $experience=$req->experience;
         $age=$req->age;
-        if ($gender==0) {
-            $jobs=Job::where('gender',0)
-            ->where('min_age','<=',$age)
-            ->where('max_age','>=',$age)
-            ->where('experience','<=',$experience)
-            ->get();
+        if ($gender==null || $experience==null || $age==null) {
+            return 1;
         } else {
+            if ($gender==0) {
             $jobs=Job::where('gender',0)
-            ->orWhere('gender',$gender)
             ->where('min_age','<=',$age)
             ->where('max_age','>=',$age)
             ->where('experience','<=',$experience)
             ->get();
-        }
-
-        $locations=array();
-        if(count($jobs)>0){
-            foreach ($jobs as $job) {
-                $locations[$job->id]=$job->location; 
+            } else {
+                $jobs=Job::whereRaw('min_age<='.$age.' and max_age>='.$age.' and experience<='.$experience.' and (gender=0 or gender='.$gender.')')
+                ->get();
             }
+            $locations=array();
+            if(count($jobs)>0){
+                foreach ($jobs as $job) {
+                    $locations[$job->id]=$job->location; 
+                }
+            }
+            else{
+                return 1;
+            }
+            return $locations;
         }
-        return $locations;
-
     }
 
     public function postSearchWork(Request $req)
@@ -125,12 +152,17 @@ class AdminController extends Controller
         $salary=(int)$req->salary;
         $age=(int)$req->age;
         $soft_skill=(int)$req->soft_skill;
-        echo "Mã nghề: ".$career_id;
-        echo "Địa Điểm: ".$location;
-        echo "Mã cấp bậc:".$position_id;
-        echo "Kinh nghiệm:".$experience;
-        echo "Lương:".$salary;
-        echo "Tuổi:".$age;
+        $khoangcachs=array_filter(explode(",",$req->khoangcachs));
+        
+        // $khoangcachs=$req->khoangcachs;
+        // var_dump($khoangcachs);
+        // echo "Mã nghề: ".$career_id;
+        // echo "Địa Điểm: ".$location;
+        // echo "Mã cấp bậc:".$position_id;
+        // echo "Kinh nghiệm:".$experience;
+        // echo "Lương:".$salary;
+        // echo "Tuổi:".$age;
+        // var_dump($khoangcachs);
         $jobs=null;
         if ($gender==0) {
             $jobs=Job::where('gender',0)
@@ -139,27 +171,65 @@ class AdminController extends Controller
             ->where('experience','<=',$experience)
             ->get();
         } else {
-            $jobs=Job::where('gender',0)
-            ->orWhere('gender',$gender)
-            ->where('min_age','<=',$age)
-            ->where('max_age','>=',$age)
-            ->where('experience','<=',$experience)
+            $jobs=Job::whereRaw('min_age<='.$age.' and max_age>='.$age.' and experience<='.$experience.' and (gender=0 or gender='.$gender.')')
             ->get();
         }
+
+        $age_w=$req->age_w;
+        $career_sim_w = $req->career_sim_w;
+        $salary_w = $req->salary_w;
+        $distance_w = $req->distance_w;
+        $experience_w = $req->experience_w;
+        $position_w = $req->position_w;
+        $soft_skill_w=$req->soft_skill_w;
         
+        $weights=Weight::select('weight')->get()->toArray();
         //Đây là chỗ Topsis
-        $mang_trong_so = [1,1,1,1,1,1,1];
+        $mang_trong_so = [];
+        foreach ($weights as $value) {
+            $mang_trong_so[]=$value['weight'] ;
+        }
+
+        $mang_trong_so[0] = ($mang_trong_so[0] + $age_w/5) / 2;
+        $mang_trong_so[1] = ($mang_trong_so[1] + $career_sim_w/5) / 2;
+        $mang_trong_so[2] = ($mang_trong_so[2] + $salary_w/5) / 2;
+        $mang_trong_so[3] = ($mang_trong_so[3] + $distance_w/5) / 2;
+        $mang_trong_so[4] = ($mang_trong_so[4] + $experience_w/5) / 2;
+        $mang_trong_so[5] = ($mang_trong_so[5] + $position_w/5) / 2;
+        $mang_trong_so[6] = ($mang_trong_so[6] + $soft_skill_w/5) / 2;
+        
+
+        $data_input=['gender'=>$gender,
+                    'career_id'=>$career_id,
+                    'location'=>$location,
+                    'position_id'=>$position_id,
+                    'experience'=>$experience,
+                    'salary'=>$salary,
+                    'age'=>$age,
+                    'soft_skill'=>$soft_skill,
+                    'age_w'=>$age_w,
+                    'career_sim_w'=>$career_sim_w,
+                    'salary_w'=>$salary_w,
+                    'distance_w'=>$distance_w,
+                    'experience_w'=>$experience_w,
+                    'position_w'=>$position_w,
+                    'soft_skill_w'=>$soft_skill_w,
+                    'sex_w'=>$req->sex_w
+                ];
+
+
         $careers = array();
-        $careers[0] = [1,1,1,1,1,1,1,1,1,1];
-        $careers[1] = [1,1,1,1,1,1,1,1,1,1];
-        $careers[2] = [1,1,1,1,1,1,1,1,1,1];
-        $careers[3] = [1,1,1,1,1,1,1,1,1,1];
-        $careers[4] = [1,1,1,1,1,1,1,1,1,1];
-        $careers[5] = [1,1,1,1,1,1,1,1,1,1];
-        $careers[6] = [1,1,1,1,1,1,1,1,1,1];
-        $careers[7] = [1,1,1,1,1,1,1,1,1,1];
-        $careers[8] = [1,1,1,1,1,1,1,1,1,1];
-        $careers[9] = [1,1,1,1,1,1,1,1,1,1];
+        $careers[0] = [1  ,0.1,0.7,0.4,0.5,0.1,0.2,0.4,0.2,0.2];
+        $careers[1] = [0.1, 1 ,0.2,0.5,0.6,0.6,0.7,0.5,0.3,0.2];
+        $careers[2] = [0.7,0.4, 1 ,0.3,0.2,0.1,0.2,0.1,0.1,0.2];
+        $careers[3] = [0.4,0.5,0.6, 1 ,0.6,0.4,0.5,0.4,0.2,0.3];
+        $careers[4] = [0.5,0.6,0.2,0.6, 1 ,0.3,0.7,0.8,0.3,0.2];
+        $careers[5] = [0.1,0.6,0.1,0.4,0.3, 1 ,0.1,0.1,0.6,0.3];
+        $careers[6] = [0.2,0.7,0.2,0.5,0.7,0.1, 1 ,0.4,0.1,0.1];
+        $careers[7] = [0.4,0.5,0.1,0.4,0.8,0.1,0.4, 1 ,0.1,0.1];
+        $careers[8] = [0.2,0.3,0.1,0.2,0.3,0.6,0.1,0.1, 1 ,0.2];
+        $careers[9] = [0.2,0.2,0.2,0.3,0.2,0.3,0.1,0.1,0.2, 1 ];
+
         $ages = array();
         $career_sim = array();
         $salarys = array();
@@ -169,13 +239,12 @@ class AdminController extends Controller
         $soft_skills = array();
         foreach ($jobs as $job) {
             $ages[] = ($job->minage - $age);
-            $career_sim[] = $careers[$career_id][$job->career_id];
+            $career_sim[] = $careers[$career_id-1][$job->career_id-1];
             $salarys[]= ($job->salary*1000000 - $salary);
-            $distances[] = 1;
+            $distances[] = 1 / ($khoangcachs[$job->id]+0.1);
             $experiences[]=($experience - $job->experience);
-            $positions[]=($job->position_id-$position_id);
+            $positions[]=($job->position_id-$position_id) +0.1;
             $soft_skills[]=($soft_skill - $job->soft_skill);
-            // code...
         }
         $ages_norm = 0;
         $career_sim_norm = 0;
@@ -252,17 +321,26 @@ class AdminController extends Controller
             $score[] = $s2/($s1+$s2);
         }
         $i = 0;
-        $job_score = array();
+        $job_score = [];
         foreach ($jobs as $job) {
             $job_score[$job->id] = $score[$i];
+            // echo $job->id.'-';
             $i++;
         }
-        echo "<pre>";
-        var_dump($jobs);
-        echo "</pre>";
-        echo "========";
-        echo "</br>";
-        var_dump($job_score);
-
+        arsort($job_score);
+        // var_dump($job_score);
+        $jobs_sorted = [];
+        foreach($job_score as $key => $value){
+            // var_dump($key);
+            foreach ($jobs as $job) {
+                if($job->id == $key){
+                    $jobs_sorted[] = $job;
+                }
+            }
+        }
+        // echo "<pre>";
+        // var_dump($jobs_sorted);
+        // var_dump($job_score);
+        return view('client.pages.home',['jobs'=>$jobs_sorted, 'paginate'=>false, 'data_input'=>$data_input]);  
     }
 }

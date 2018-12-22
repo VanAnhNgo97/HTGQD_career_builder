@@ -13,7 +13,7 @@
 
 Route::get('/','ClientController@getHome')->name('getHome');
 
-Route::get('cong-viec','ClientController@getWorkInfo')->name('getWorkInfo');
+Route::get('cong-viec/{id}','ClientController@getWorkInfo')->name('getWorkInfo');
 
 Route::get('admin/trang-chu','AdminController@getHome')->name('getAdminHome');
 
@@ -32,3 +32,5 @@ Route::get('admin/xoa-cong-viec/{id}','AdminController@getDeleteJob')->name('get
 Route::post('tim-kiem','AdminController@postSearchWork')->name('postSearchWork');
 
 Route::post('lay-danh-sach-dia-diem','AdminController@postListLocation')->name('postListLocation');
+
+Route::post('sua-trong-so','AdminController@postEditWeight')->name('postEditWeight');
