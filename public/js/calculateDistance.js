@@ -1,7 +1,7 @@
 
 $('#btnSearch').on('click',function(){
 	var location=$('#location').val();
-    alert('Hệ thống đang tìm kiếm. Vui lòng đợi trong giây lát.');
+    // alert('Hệ thống đang tìm kiếm. Vui lòng đợi trong giây lát.');
     $.ajax({
         url: $('#btnSearch').attr('getLocations'),
         method: 'post',
@@ -13,7 +13,7 @@ $('#btnSearch').on('click',function(){
         }
     }).done(function(data){
         if (data==1) {
-            alert('Thông tin bạn vừa nhập không có công ty nào phù hợp. Vui lòng sửa lại yêu cầu.')
+            alert('Thông tin bạn vừa nhập chưa đủ hoặc không có công ty nào phù hợp. Vui lòng sửa lại yêu cầu.')
         } else {
             calculateDistances(location, data);
         }
@@ -67,7 +67,7 @@ function calculateDistances(origin, destinations){
         $('#khoangcachs').val(distances);
         $('#searchFormRightCol').submit();
 
-    }, 1500);
+    }, 3000);
     
 }
 

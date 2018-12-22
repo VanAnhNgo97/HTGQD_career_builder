@@ -32,3 +32,5 @@ Route::get('admin/xoa-cong-viec/{id}','AdminController@getDeleteJob')->name('get
 Route::post('tim-kiem','AdminController@postSearchWork')->name('postSearchWork');
 
 Route::post('lay-danh-sach-dia-diem','AdminController@postListLocation')->name('postListLocation');
+
+Route::post('sua-trong-so','AdminController@postEditWeight')->name('postEditWeight');

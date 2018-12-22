@@ -19,7 +19,7 @@
                 <h1>Tìm Kiếm Việc Làm</h1>
             </div>
             <div class="row">
-                <div class="col-sm-9">
+                <div class="col-sm-8">
                     <form id="save-job-form" name="frmForm" action="" method="get">
                         <input type="hidden" name="current_route" value="_job_search_by_category" />
                         <input type="hidden" name="current_route_params[category_name]" value="cntt-phan-mem" />
@@ -70,7 +70,7 @@
                         </nav>
                     </div>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <div class="search-form-right-col-container">
                         <div class="panel panel-form modify-search-container">
                             <div class="panel-heading">
@@ -78,10 +78,10 @@
                             </div>
                             <div class="panel-body">
                                 <form id="searchFormRightCol" action="{{ route('postSearchWork') }}" method="post" role="form">
-                                    <div class="form-group">
+                                    <div class="form-group col-sm-8">
                                         <label class="control-label">Ngành nghề</label>
                                         <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}">
-                                        <select id="advancedJobSearch_categories" name="career_id" class="input-sm form-control" size="1">
+                                        <select id="advancedJobSearch_categories" name="career_id" class="input-sm form-control" size="1" required>
                                             @if (isset($data_input['career_id']))
                                             @php
                                                 $career_id=$data_input['career_id'];
@@ -132,21 +132,46 @@
                                             @endif
                                         </select>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group col-sm-4">
+                                        <label class="control-label">Trọng số</label>
+                                        <input type="number" name="career_sim_w" class="input-sm form-control" placeholder="Tuổi Của Bạn..." min="0" max="5" @if(isset($data_input['career_sim_w']))
+                                        value="{{ $data_input['career_sim_w'] }}" 
+                                        @else
+                                        value="0"
+                                        @endif
+                                         />
+                                    </div>
+                                    <div class="form-group col-sm-8">
                                         <label class="control-label">Tuổi</label>
                                         <input type="number" id="age" name="age" class="input-sm form-control" placeholder="Tuổi Của Bạn..." @if (isset($data_input['age']))
                                             value="{{ $data_input['age'] }}"
+                                        @endif required />
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <label class="control-label">&nbsp</label>
+                                        <input type="number" name="age_w" class="input-sm form-control" placeholder="Tuổi Của Bạn..." min="0" max="5" @if(isset($data_input['age_w']))
+                                        value="{{ $data_input['age_w'] }}" 
+                                        @else
+                                        value="0"
                                         @endif />
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group col-sm-8">
                                         <label class="control-label">Địa điểm</label>
                                         <input type="text" id="location" name="location" class="input-sm form-control" placeholder="Địa Điểm Của Bạn..." @if (isset($data_input['location']))
                                             value="{{ $data_input['location'] }}"
-                                        @endif/>
+                                        @endif required/>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group col-sm-4">
+                                        <label class="control-label">&nbsp</label>
+                                        <input type="number" name="distance_w" class="input-sm form-control" placeholder="Tuổi Của Bạn..." min="0" max="5" @if(isset($data_input['distance_w']))
+                                        value="{{ $data_input['distance_w'] }}" 
+                                        @else
+                                        value="0"
+                                        @endif />
+                                    </div>
+                                    <div class="form-group col-sm-8">
                                         <label class="control-label">Giới Tính</label>
-                                        <select id="gender" name="gender" class="input-sm form-control" size="1">
+                                        <select id="gender" name="gender" class="input-sm form-control" size="1" required>
                                             @if (isset($data_input['gender']))
                                                 @php
                                                     $gender=$data_input['gender'];
@@ -169,9 +194,17 @@
                                             @endif
                                         </select>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group col-sm-4">
+                                        <label class="control-label">&nbsp</label>
+                                        <input type="number" name="sex_w" class="input-sm form-control" placeholder="Tuổi Của Bạn..." min="0" max="5" @if(isset($data_input['sex_w']))
+                                        value="{{ $data_input['sex_w'] }}" 
+                                        @else
+                                        value="0"
+                                        @endif />
+                                    </div>
+                                    <div class="form-group col-sm-8">
                                         <label class="control-label">Cấp Bậc</label>
-                                        <select id="advancedJobSearch_educationLevels" name="position_id" class="input-sm form-control" size="1">
+                                        <select id="advancedJobSearch_educationLevels" name="position_id" class="input-sm form-control" size="1" required>
                                             @if (isset($data_input['position_id']))
                                                 @php
                                                     $position_id=$data_input['position_id'];
@@ -210,23 +243,91 @@
                                             @endif
                                         </select>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group col-sm-4">
+                                        <label class="control-label">&nbsp</label>
+                                        <input type="number" name="position_w" class="input-sm form-control" placeholder="Tuổi Của Bạn..." min="0" max="5" @if(isset($data_input['position_w']))
+                                        value="{{ $data_input['position_w'] }}" 
+                                        @else
+                                        value="0"
+                                        @endif />
+                                    </div>
+                                    <div class="form-group col-sm-8">
                                         <label class="control-label">Kinh nghiệm</label>
                                         <input type="number" id="experience" name="experience" class="input-sm form-control" placeholder="Kinh Nghiệm Của Bạn...(năm)" min="1" @if (isset($data_input['experience']))
                                             value="{{ $data_input['experience'] }}"
+                                        @endif required />
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <label class="control-label">&nbsp</label>
+                                        <input type="number" name="experience_w" class="input-sm form-control" placeholder="Tuổi Của Bạn..." min="0" max="5" @if(isset($data_input['experience_w']))
+                                        value="{{ $data_input['experience_w'] }}" 
+                                        @else
+                                        value="0"
                                         @endif />
                                     </div>
 
-                                    <div class="form-group">
+                                    <div class="form-group col-sm-8">
                                         <label for="advancedJobSearch_salaryType" class="control-label">Mức lương</label>
 
                                         <div class="form-inline">
                                             <input type="number" id="advancedJobSearch_keywords" name="salary" class="input-sm form-control" placeholder="Lương...(triệu)" min="1" @if (isset($data_input['salary']))
                                                 value="{{ $data_input['salary'] }}" 
-                                            @endif/>
+                                            @endif required/>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group col-sm-4">
+                                        <label class="control-label">&nbsp</label>
+                                        <input type="number" name="salary_w" class="input-sm form-control" placeholder="Tuổi Của Bạn..." min="0" max="5" @if(isset($data_input['salary_w']))
+                                        value="{{ $data_input['salary_w'] }}" 
+                                        @else
+                                        value="0"
+                                        @endif />
+                                    </div>
+                                    <div class="form-group col-sm-8">
+                                        <label for="advancedJobSearch_salaryType" class="control-label">Kỹ năng mềm</label>
+
+                                        <div class="form-inline">
+                                            <select id="advancedJobSearch_educationLevels" name="soft_skill" class="input-sm form-control" size="1" required>
+                                            @if(isset($data_input['soft_skill']))
+                                            @php
+                                                $soft_skill=$data_input['soft_skill'];
+                                            @endphp
+                                                <option value="">Chọn kỹ năng mềm</option>
+                                                <option value="1" @if($soft_skill==1) 
+                                                selected 
+                                                @endif>Kém</option>
+                                                <option value="2" @if($soft_skill==2) 
+                                                selected 
+                                                @endif>Khá</option>
+                                                <option value="3" @if($soft_skill==3) 
+                                                selected 
+                                                @endif>Trung Bình</option>
+                                                <option value="4" @if($soft_skill==4) 
+                                                selected 
+                                                @endif>Tốt</option>
+                                                <option value="5" @if($soft_skill==5) 
+                                                selected 
+                                                @endif>Rất Tốt</option>
+                                            @else
+                                                <option value="">Chọn kỹ năng mềm</option>
+                                                <option value="1">Kém</option>
+                                                <option value="2">Khá</option>
+                                                <option value="3">Trung Bình</option>
+                                                <option value="4">Tốt</option>
+                                                <option value="5">Rất Tốt</option>
+                                            @endif
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <label class="control-label">&nbsp</label>
+                                        <input type="number" name="soft_skill_w" class="input-sm form-control" placeholder="Tuổi Của Bạn..." min="0" max="5" @if(isset($data_input['soft_skill_w']))
+                                        value="{{ $data_input['soft_skill_w'] }}" 
+                                        @else
+                                        value="0"
+                                        @endif />
+                                    </div>
+                                    <div class="form-group col-sm-8">
                                         <input type="hidden" name="khoangcachs" id="khoangcachs">
                                         <input type="button" id="btnSearch" class="btn btn-primary" value="Tìm kiếm"  url='{{ route('postListLocation') }}' getLocations='{{ route('postListLocation') }}'/>
                                     </div>
