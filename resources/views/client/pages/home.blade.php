@@ -398,8 +398,12 @@
     <script type="text/javascript">
         $(document).ready(function(){
             geocoder = new GClientGeocoder();
+            //pagination
+
         });
     </script>
+    <script type="text/javascript" src="{{ asset('js/pagination.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/calculateDistance.js') }}"></script>
+
     <div id="messenger-widget"></div>
 @endsection
