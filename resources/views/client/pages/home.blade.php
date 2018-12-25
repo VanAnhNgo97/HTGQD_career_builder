@@ -1,7 +1,7 @@
 @extends('client.layouts.master')
 
 @section('title')
-	CareerLink.vn
+	Find Jobs
 @endsection
 
 @section('head')
@@ -134,7 +134,7 @@
                                     </div>
                                     <div class="form-group col-sm-4">
                                         <label class="control-label">Trọng số</label>
-                                        <input type="number" name="career_sim_w" class="input-sm form-control" placeholder="Tuổi Của Bạn..." min="0" max="5" @if(isset($data_input['career_sim_w']))
+                                        <input type="number" name="career_sim_w" class="input-sm form-control" placeholder="" min="0" max="5" @if(isset($data_input['career_sim_w']))
                                         value="{{ $data_input['career_sim_w'] }}" 
                                         @else
                                         value="0"
@@ -149,7 +149,7 @@
                                     </div>
                                     <div class="form-group col-sm-4">
                                         <label class="control-label">&nbsp</label>
-                                        <input type="number" name="age_w" class="input-sm form-control" placeholder="Tuổi Của Bạn..." min="0" max="5" @if(isset($data_input['age_w']))
+                                        <input type="number" name="age_w" class="input-sm form-control" placeholder="" min="0" max="5" @if(isset($data_input['age_w']))
                                         value="{{ $data_input['age_w'] }}" 
                                         @else
                                         value="0"
@@ -163,7 +163,7 @@
                                     </div>
                                     <div class="form-group col-sm-4">
                                         <label class="control-label">&nbsp</label>
-                                        <input type="number" name="distance_w" class="input-sm form-control" placeholder="Tuổi Của Bạn..." min="0" max="5" @if(isset($data_input['distance_w']))
+                                        <input type="number" name="distance_w" class="input-sm form-control" placeholder="" min="0" max="5" @if(isset($data_input['distance_w']))
                                         value="{{ $data_input['distance_w'] }}" 
                                         @else
                                         value="0"
@@ -196,7 +196,7 @@
                                     </div>
                                     <div class="form-group col-sm-4">
                                         <label class="control-label">&nbsp</label>
-                                        <input type="number" name="sex_w" class="input-sm form-control" placeholder="Tuổi Của Bạn..." min="0" max="5" @if(isset($data_input['sex_w']))
+                                        <input type="number" name="sex_w" class="input-sm form-control" placeholder="" min="0" max="5" @if(isset($data_input['sex_w']))
                                         value="{{ $data_input['sex_w'] }}" 
                                         @else
                                         value="0"
@@ -245,7 +245,7 @@
                                     </div>
                                     <div class="form-group col-sm-4">
                                         <label class="control-label">&nbsp</label>
-                                        <input type="number" name="position_w" class="input-sm form-control" placeholder="Tuổi Của Bạn..." min="0" max="5" @if(isset($data_input['position_w']))
+                                        <input type="number" name="position_w" class="input-sm form-control" placeholder="" min="0" max="5" @if(isset($data_input['position_w']))
                                         value="{{ $data_input['position_w'] }}" 
                                         @else
                                         value="0"
@@ -259,7 +259,7 @@
                                     </div>
                                     <div class="form-group col-sm-4">
                                         <label class="control-label">&nbsp</label>
-                                        <input type="number" name="experience_w" class="input-sm form-control" placeholder="Tuổi Của Bạn..." min="0" max="5" @if(isset($data_input['experience_w']))
+                                        <input type="number" name="experience_w" class="input-sm form-control" placeholder="" min="0" max="5" @if(isset($data_input['experience_w']))
                                         value="{{ $data_input['experience_w'] }}" 
                                         @else
                                         value="0"
@@ -277,7 +277,7 @@
                                     </div>
                                     <div class="form-group col-sm-4">
                                         <label class="control-label">&nbsp</label>
-                                        <input type="number" name="salary_w" class="input-sm form-control" placeholder="Tuổi Của Bạn..." min="0" max="5" @if(isset($data_input['salary_w']))
+                                        <input type="number" name="salary_w" class="input-sm form-control" placeholder="" min="0" max="5" @if(isset($data_input['salary_w']))
                                         value="{{ $data_input['salary_w'] }}" 
                                         @else
                                         value="0"
@@ -321,7 +321,7 @@
                                     </div>
                                     <div class="form-group col-sm-4">
                                         <label class="control-label">&nbsp</label>
-                                        <input type="number" name="soft_skill_w" class="input-sm form-control" placeholder="Tuổi Của Bạn..." min="0" max="5" @if(isset($data_input['soft_skill_w']))
+                                        <input type="number" name="soft_skill_w" class="input-sm form-control" placeholder="" min="0" max="5" @if(isset($data_input['soft_skill_w']))
                                         value="{{ $data_input['soft_skill_w'] }}" 
                                         @else
                                         value="0"

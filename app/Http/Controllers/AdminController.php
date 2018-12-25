@@ -176,12 +176,37 @@ class AdminController extends Controller
         }
 
         $age_w=$req->age_w;
+        if($age_w == 0){
+            $age_w = 0.0001;
+        }
         $career_sim_w = $req->career_sim_w;
+        if($career_sim_w == 0){
+            $career_sim_w = 0.0001;
+        }
         $salary_w = $req->salary_w;
+        if($salary_w == 0){
+            $salary_w = 0.0001;
+        }
         $distance_w = $req->distance_w;
+        if($distance_w == 0){
+            $distance_w = 0.0001;
+        }
         $experience_w = $req->experience_w;
+        if($experience_w == 0){
+            $experience_w = 0.0001;
+        }
         $position_w = $req->position_w;
+        if($position_w == 0){
+            $position_w = 0.0001;
+        }
         $soft_skill_w=$req->soft_skill_w;
+        if($soft_skill_w == 0){
+            $soft_skill_w = 0.0001;
+        }
+        $sex_w = $req->sex_w;
+        if($sex_w == 0){
+            $sex_w = 0.0001;
+        }
         
         $weights=Weight::select('weight')->get()->toArray();
         //Đây là chỗ Topsis
@@ -190,13 +215,22 @@ class AdminController extends Controller
             $mang_trong_so[]=$value['weight'] ;
         }
 
-        $mang_trong_so[0] = ($mang_trong_so[0] + $age_w/5) / 2;
-        $mang_trong_so[1] = ($mang_trong_so[1] + $career_sim_w/5) / 2;
-        $mang_trong_so[2] = ($mang_trong_so[2] + $salary_w/5) / 2;
-        $mang_trong_so[3] = ($mang_trong_so[3] + $distance_w/5) / 2;
-        $mang_trong_so[4] = ($mang_trong_so[4] + $experience_w/5) / 2;
-        $mang_trong_so[5] = ($mang_trong_so[5] + $position_w/5) / 2;
-        $mang_trong_so[6] = ($mang_trong_so[6] + $soft_skill_w/5) / 2;
+        $sum_weights =  $mang_trong_so[0] * $age_w / 5 + 
+                        $mang_trong_so[1] * $career_sim_w / 5 + 
+                        $mang_trong_so[2] * $salary_w / 5 + 
+                        $mang_trong_so[3] * $distance_w / 5 + 
+                        $mang_trong_so[4] * $experience_w / 5 + 
+                        $mang_trong_so[5] * $position_w / 5 + 
+                        $mang_trong_so[6] * $soft_skill_w / 5; 
+                        
+
+        $mang_trong_so[0] = ($mang_trong_so[0] * $age_w/5) / $sum_weights;
+        $mang_trong_so[1] = ($mang_trong_so[1] * $career_sim_w/5) / $sum_weights;
+        $mang_trong_so[2] = ($mang_trong_so[2] * $salary_w/5) / $sum_weights;
+        $mang_trong_so[3] = ($mang_trong_so[3] * $distance_w/5) / $sum_weights;
+        $mang_trong_so[4] = ($mang_trong_so[4] * $experience_w/5) / $sum_weights;
+        $mang_trong_so[5] = ($mang_trong_so[5] * $position_w/5) / $sum_weights;
+        $mang_trong_so[6] = ($mang_trong_so[6] * $soft_skill_w/5) / $sum_weights;
         
 
         $data_input=['gender'=>$gender,
@@ -214,21 +248,21 @@ class AdminController extends Controller
                     'experience_w'=>$experience_w,
                     'position_w'=>$position_w,
                     'soft_skill_w'=>$soft_skill_w,
-                    'sex_w'=>$req->sex_w
+                    'sex_w'=>$sex_w
                 ];
 
 
         $careers = array();
-        $careers[0] = [1  ,0.1,0.7,0.4,0.5,0.1,0.2,0.4,0.2,0.2];
-        $careers[1] = [0.1, 1 ,0.2,0.5,0.6,0.6,0.7,0.5,0.3,0.2];
-        $careers[2] = [0.7,0.4, 1 ,0.3,0.2,0.1,0.2,0.1,0.1,0.2];
-        $careers[3] = [0.4,0.5,0.6, 1 ,0.6,0.4,0.5,0.4,0.2,0.3];
-        $careers[4] = [0.5,0.6,0.2,0.6, 1 ,0.3,0.7,0.8,0.3,0.2];
-        $careers[5] = [0.1,0.6,0.1,0.4,0.3, 1 ,0.1,0.1,0.6,0.3];
-        $careers[6] = [0.2,0.7,0.2,0.5,0.7,0.1, 1 ,0.4,0.1,0.1];
-        $careers[7] = [0.4,0.5,0.1,0.4,0.8,0.1,0.4, 1 ,0.1,0.1];
-        $careers[8] = [0.2,0.3,0.1,0.2,0.3,0.6,0.1,0.1, 1 ,0.2];
-        $careers[9] = [0.2,0.2,0.2,0.3,0.2,0.3,0.1,0.1,0.2, 1 ];
+        $careers[0] = [1    ,0.001,0.4  ,0.15 ,0.2  ,0.001,0.01 ,0.15 ,0.01 ,0.01 ];
+        $careers[1] = [0.001, 1   ,0.01 ,0.2  ,0.3  ,0.3  ,0.4  ,0.2  ,0.1  ,0.01 ];
+        $careers[2] = [0.4  ,0.15 , 1   ,0.1  ,0.01 ,0.001,0.01 ,0.001,0.001,0.01 ];
+        $careers[3] = [0.15 ,0.2  ,0.3  , 1   ,0.3  ,0.15 ,0.2  ,0.15 ,0.01 ,0.1  ];
+        $careers[4] = [0.2  ,0.3  ,0.01 ,0.3  , 1   ,0.1  ,0.4  ,0.5  ,0.1  ,0.01 ];
+        $careers[5] = [0.001,0.3  ,0.001,0.15 ,0.1  , 1   ,0.001,0.001,0.3  ,0.1  ];
+        $careers[6] = [0.01 ,0.4  ,0.01 ,0.2  ,0.4  ,0.001, 1   ,0.15 ,0.001,0.001];
+        $careers[7] = [0.15 ,0.2  ,0.001,0.15 ,0.8  ,0.001,0.15 , 1   ,0.001,0.001];
+        $careers[8] = [0.01 ,0.1  ,0.001,0.01 ,0.1  ,0.3  ,0.001,0.001, 1   ,0.01 ];
+        $careers[9] = [0.01 ,0.01 ,0.01 ,0.1  ,0.01 ,0.1  ,0.001,0.001,0.01 , 1   ];
 
         $ages = array();
         $career_sim = array();
@@ -332,9 +366,11 @@ class AdminController extends Controller
         $jobs_sorted = [];
         foreach($job_score as $key => $value){
             // var_dump($key);
-            foreach ($jobs as $job) {
-                if($job->id == $key){
-                    $jobs_sorted[] = $job;
+            if($value > 0.5){
+                foreach ($jobs as $job) {
+                    if($job->id == $key){
+                        $jobs_sorted[] = $job;
+                    }
                 }
             }
         }
